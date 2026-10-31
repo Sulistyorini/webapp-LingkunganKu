@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="csrf-token" content="<?= csrf_token() ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LingkunganKU - Buat Akun</title>
   <meta name="description" content="Halaman pendaftaran akun baru LingkunganKU.">
@@ -369,6 +370,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/css/auth-glass.css?v=9">
+  <script>if(window.self!==window.top)document.documentElement.classList.add('embed');</script>
+  <script src="/js/clarity.js"></script>
 </head>
 <body class="auth-page">
 
@@ -378,7 +382,7 @@
     <!-- Header -->
     <div class="auth-card-header">
       <div class="auth-card-logo">
-        <img src="/assets/images/logo.png" alt="Logo LingkunganKU"
+        <img src="/assets/images/logo.webp" alt="Logo LingkunganKU"
           onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='block'">
         <span class="logo-fallback" style="display:none; font-size:1.5rem">🌿</span>
       </div>
@@ -408,9 +412,9 @@
         </div>
 
         <div class="auth-field">
-          <label for="email-telepon">Email atau nomor telepon</label>
-          <input type="text" id="email-telepon" name="email_telepon"
-            placeholder="Masukkan email atau no. telepon" autocomplete="username">
+          <label for="email-telepon">Email</label>
+          <input type="email" id="email-telepon" name="email_telepon"
+            placeholder="Masukkan alamat email" autocomplete="username">
           <span class="field-error" id="error-email">Field ini wajib diisi</span>
         </div>
       </div>
@@ -470,6 +474,10 @@
 
       <button type="submit" class="auth-btn-primary">Daftar Sekarang</button>
     </form>
+    <div style="text-align:center;margin:1rem 0 .4rem;opacity:.8;font-size:.85rem">atau</div>
+    <div id="google-wrap" style="display:flex;justify-content:center">
+      <div id="google-btn" data-text="signup_with" style="width:100%;max-width:400px;display:flex;justify-content:center"></div>
+    </div>
 
     <div class="auth-login-link">
       Sudah punya akun? <a href="/login">Masuk di sini</a>
@@ -546,52 +554,10 @@
     inputEmail.addEventListener('input', function() { clearErr(inputEmail, errEmail); });
     inputKonf.addEventListener('input',  function() { clearErr(inputKonf, errKonf); });
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var nama  = inputNama.value.trim();
-      var email = inputEmail.value.trim();
-      var pw    = inputPw.value;
-      var konf  = inputKonf.value;
-      var ok    = true;
-
-      if (!nama)  { inputNama.classList.add('input-error');  errNama.classList.add('visible');                                 ok = false; }
-      if (!email) { inputEmail.classList.add('input-error'); errEmail.classList.add('visible');                                ok = false; }
-      if (!pw)    { inputPw.classList.add('input-error');    errPw.textContent = 'Field ini wajib diisi';   errPw.classList.add('visible');   ok = false; }
-      if (!konf)  { inputKonf.classList.add('input-error');  errKonf.textContent = 'Field ini wajib diisi'; errKonf.classList.add('visible'); ok = false; }
-      if (!ok) return;
-
-      if (pw !== konf) {
-        inputKonf.classList.add('input-error');
-        errKonf.textContent = 'Password dan konfirmasi tidak cocok';
-        errKonf.classList.add('visible');
-        return;
-      }
-
-      var akun = JSON.parse(localStorage.getItem('lingkunganku_accounts') || '[]');
-      for (var i = 0; i < akun.length; i++) {
-        if (akun[i].email.toLowerCase() === email.toLowerCase()) {
-          inputEmail.classList.add('input-error');
-          errorBanner.textContent = 'Akun dengan email/telepon ini sudah terdaftar.';
-          errorBanner.classList.add('visible');
-          return;
-        }
-      }
-
-      akun.push({ nama: nama, email: email, password: pw });
-      localStorage.setItem('lingkunganku_accounts', JSON.stringify(akun));
-      localStorage.setItem('lingkunganku_logged_in', 'true');
-      localStorage.setItem('lingkunganku_nama', nama);
-      localStorage.setItem('lingkunganku_email', email);
-
-      var redirect = localStorage.getItem('lingkunganku_redirect');
-      if (redirect) {
-        localStorage.removeItem('lingkunganku_redirect');
-        window.location.href = redirect;
-      } else {
-        window.location.href = '/';
-      }
-    });
   </script>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/js/google-login.js?v=2"></script>
+  <script src="/js/auth-warga.js?v=3"></script>
 </body>
 </html>

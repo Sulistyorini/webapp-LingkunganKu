@@ -69,7 +69,7 @@
   overflow: hidden;
   padding: 100px 24px 80px;
   box-sizing: border-box;
-  background-image: url("../assets/images/hero-city.png");
+  background-image: url("../assets/images/hero-city.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -570,3 +570,129 @@
   .laporan-card-img,
   .hero-search-btn { transition: none; transform: none; will-change: auto; }
 }
+
+/* ===== Kartu laporan bisa digeser ke samping ===== */
+.laporan-grid {
+  display: flex !important;
+  grid-template-columns: none !important;
+  gap: 20px !important;
+  list-style: none;
+  margin: 0 !important;
+  padding: 8px 4px 18px !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.laporan-grid > li {
+  flex: 0 0 calc((100% - 60px) / 4);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.laporan-grid::-webkit-scrollbar { height: 6px; }
+.laporan-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+@media (max-width: 1024px) {
+  .laporan-grid > li { flex-basis: calc((100% - 20px) / 2); }
+}
+@media (max-width: 600px) {
+  .laporan-grid > li { flex-basis: 78%; }
+}
+
+/* Foto lebih terlihat: teks & gradasi turun ke bawah */
+.laporan-grid .laporan-card { height: 340px !important; }
+.laporan-grid .laporan-card-body {
+  padding: 14px 16px 14px !important;
+  background: linear-gradient(to top,
+    rgba(0,0,0,.85) 0%, rgba(0,0,0,.5) 30%, rgba(0,0,0,0) 52%) !important;
+}
+.laporan-grid .laporan-card-desc {
+  -webkit-line-clamp: 1 !important;
+  margin-top: 4px !important;
+}
+.laporan-grid .laporan-card-body::after { margin-top: 10px; }
+
+/* ===== Final: foto besar + keterangan putih di bawah, tanpa gradasi hitam ===== */
+.laporan-grid .laporan-card {
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column;
+  background: #fff !important;
+  overflow: hidden !important;
+}
+.laporan-grid .laporan-card-img-wrap {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 240px !important;
+  flex: 0 0 240px;
+}
+.laporan-grid .laporan-card-img,
+.laporan-grid .laporan-card-img-fallback {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+.laporan-grid .laporan-card-body {
+  position: static !important;
+  inset: auto !important;
+  display: block !important;
+  background: #fff !important;
+  padding: 12px 16px 14px !important;
+}
+.laporan-grid .laporan-card-body::after { content: none !important; }
+.laporan-grid .laporan-card-title { color: #0f172a !important; margin: 0 0 6px !important; }
+.laporan-grid .laporan-card-lokasi,
+.laporan-grid .laporan-card-waktu { color: #64748b !important; margin: 0 0 3px !important; }
+.laporan-grid .laporan-card-desc {
+  color: #475569 !important;
+  margin: 6px 0 0 !important;
+  -webkit-line-clamp: 2 !important;
+}
+.laporan-grid .laporan-card-badge {
+  display: inline-block;
+  order: 0;
+  margin: 10px 0 0 !important;
+  align-self: auto;
+  box-shadow: none;
+}
+
+/* ===== Kartu lebih kecil + tanpa celah kanan ===== */
+.laporan-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  gap: 16px !important;
+  padding: 8px 0 16px !important;
+  scroll-padding-left: 0;
+}
+.laporan-grid > li {
+  flex: 0 0 240px !important;
+  width: 240px !important;
+  max-width: 240px;
+}
+.laporan-grid .laporan-card-img-wrap {
+  height: 160px !important;
+  flex: 0 0 160px !important;
+}
+.laporan-grid .laporan-card-body { padding: 10px 14px 12px !important; }
+.laporan-grid .laporan-card-title { font-size: .98rem !important; }
+.laporan-grid .laporan-card-lokasi,
+.laporan-grid .laporan-card-waktu { font-size: .74rem !important; }
+.laporan-grid .laporan-card-desc {
+  font-size: .78rem !important;
+  -webkit-line-clamp: 2 !important;
+}
+.laporan-grid .laporan-card-badge { margin-top: 8px !important; }
+
+@media (max-width: 600px) {
+  .laporan-grid > li {
+    flex: 0 0 220px !important;
+    width: 220px !important;
+  }
+}
+
+/* ===== Kurangi jarak bawah section laporan ===== */
+.laporan-grid { padding-bottom: 8px !important; }

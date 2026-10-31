@@ -6,6 +6,7 @@
   <title>LingkunganKU - Detail Penanganan</title>
   <meta name="description" content="Halaman detail proses penanganan laporan oleh petugas terkait.">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/detail-penanganan.css?v=1">
   <style>
     /* ── Detail Penanganan — Desktop Layout ── */
 
@@ -433,7 +434,32 @@
       display: block;
       flex-shrink: 0;
     }
+  
+    /* Header seragam: selebar layar, tinggi sama dengan navbar menu (54px) */
+    body > header {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      box-sizing: border-box;
+      height: 54px;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: max(var(--space-6), calc((100% - 1100px) / 2 + var(--space-6)));
+      padding-right: max(var(--space-6), calc((100% - 1100px) / 2 + var(--space-6)));
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    body > header nav a h1 {
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
   </style>
+  <script src="/js/clarity.js"></script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','z4r4xbuiu3');</script>
 </head>
 <body>
 
@@ -453,7 +479,7 @@
         <h2 id="foto-penanganan-heading">Foto Laporan</h2>
         <figure>
           @if (isset($laporan) && $laporan->foto)
-            <img id="foto-penanganan" src="{{ Storage::url($laporan->foto) }}" alt="Foto laporan {{ $laporan->judul }}">
+            <img id="foto-penanganan" src="{{ $laporan->foto_url }}" alt="Foto laporan {{ $laporan->judul }}">
             <figcaption id="foto-caption">Foto dokumentasi laporan.</figcaption>
           @elseif (isset($laporan))
             <p>Foto tidak disertakan pada laporan ini.</p>

@@ -43,6 +43,9 @@ class Laporan extends Model
         if (!$this->foto) {
             return null;
         }
+        if (str_starts_with($this->foto, 'data:')) {
+            return $this->foto;
+        }
         if (preg_match('#^(https?:)?//#', $this->foto)) {
             return $this->foto;
         }

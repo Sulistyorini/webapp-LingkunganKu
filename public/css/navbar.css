@@ -251,3 +251,142 @@ html body > header.site-header .navbar .nav-aksi a.nav-user:hover { background: 
 html body > header.site-header .brand, html body > header.site-header .brand .brand-teks { color: #2563EB !important; } /* BRAND-BIRU */
 html body > header.site-header .brand .brand-ku { color: #16A34A !important; } /* BRAND-BIRU */
 html body > header.site-header .navbar li a[aria-current="page"] { color: #2563EB !important; font-weight: 700 !important; background: rgba(37,99,235,.12) !important; } /* BRAND-BIRU */
+
+/* Efek shadow biru saat menu di-hover */
+html body > header.site-header .navbar li a {
+  transition: box-shadow .25s ease, transform .25s ease, background-color .25s ease;
+}
+html body > header.site-header .navbar li a:hover {
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Tombol Daftar & Masuk: terlihat di latar terang maupun gelap */
+.site-header .nav-daftar {
+  background: var(--nb-primary, #2563eb);
+  color: #fff;
+  border: 1.5px solid #fff;
+  box-shadow: 0 2px 8px rgba(15,23,42,.25);
+}
+.site-header .nav-daftar:hover { background: #1d4ed8; }
+.site-header .nav-masuk { box-shadow: 0 2px 8px rgba(15,23,42,.2); }
+
+/* Popup login/register di atas halaman */
+.auth-overlay {
+  position: fixed; inset: 0; z-index: 99999; display: none;
+  background: #0b2a55 url('/assets/images/hero-city.webp') center / cover no-repeat;
+}
+.auth-overlay.open { display: block; }
+.auth-overlay iframe { width: 100%; height: 100%; border: 0; display: block; background: transparent; }
+
+/* Pastikan navbar dan tombol Masuk/Daftar selalu di atas konten beranda */
+.site-header { position: relative; z-index: 1000; }
+.site-header .nav-aksi, .site-header .nav-tamu { position: relative; z-index: 1001; pointer-events: auto; }
+.site-header .nav-masuk, .site-header .nav-daftar { pointer-events: auto; }
+
+/* Popup loading transparan */
+#page-loader {
+  position: fixed; inset: 0; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, .25);
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+#page-loader.aktif { opacity: 1; visibility: visible; }
+#page-loader .pl-box {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  background: rgba(255, 255, 255, .92); padding: 24px 32px; border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, .25);
+  font-size: .9rem; font-weight: 600; color: #1e3a8a;
+}
+#page-loader .pl-spin {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 4px solid #dbeafe; border-top-color: #2563EB;
+  animation: pl-putar .8s linear infinite;
+}
+@keyframes pl-putar { to { transform: rotate(360deg); } }
+
+/* Popup laporan terkirim */
+#popup-terkirim {
+  position: fixed; inset: 0; z-index: 100000;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, .35);
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+}
+#popup-terkirim[hidden] { display: none; }
+#popup-terkirim .pt-box {
+  position: relative; width: min(90vw, 360px); text-align: center;
+  background: #fff; padding: 32px 24px 24px; border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(37, 99, 235, .3);
+}
+#popup-terkirim .pt-x {
+  position: absolute; top: 10px; right: 12px; border: 0; background: transparent;
+  font-size: 1.6rem; line-height: 1; color: #64748b; cursor: pointer;
+}
+#popup-terkirim .pt-x:hover { color: #0f172a; }
+#popup-terkirim .pt-ikon {
+  width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 50%;
+  background: #dcfce7; color: #16a34a; font-size: 2rem; line-height: 56px; font-weight: 700;
+}
+#popup-terkirim h2 { margin: 0 0 6px; font-size: 1.2rem; color: #0f172a; }
+#popup-terkirim p { margin: 0 0 16px; color: #475569; font-size: .9rem; }
+#popup-terkirim a.pt-link { color: #2563EB; font-weight: 600; text-decoration: none; }
+
+/* Perbaikan tombol X popup terkirim */
+#popup-terkirim .pt-box > button.pt-x {
+  position: absolute !important;
+  top: 10px !important; right: 12px !important;
+  left: auto !important; bottom: auto !important;
+  width: 32px !important; height: 32px !important;
+  min-width: 0 !important; padding: 0 !important; margin: 0 !important;
+  display: flex !important; align-items: center; justify-content: center;
+  border: 0 !important; border-radius: 50% !important;
+  background: transparent !important; box-shadow: none !important;
+  transform: none !important;
+  font-size: 1.5rem; line-height: 1; color: #64748b; cursor: pointer;
+}
+#popup-terkirim .pt-box > button.pt-x:hover {
+  background: #f1f5f9 !important; color: #0f172a !important;
+  transform: none !important; box-shadow: none !important;
+}
+
+/* Tombol X popup terkirim: bulat presisi + hover merah */
+#popup-terkirim .pt-box > button.pt-x {
+  box-sizing: border-box !important;
+  width: 34px !important; height: 34px !important;
+  min-width: 34px !important; max-width: 34px !important;
+  min-height: 34px !important; max-height: 34px !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: inline-flex !important; align-items: center; justify-content: center;
+  font-size: 1.4rem !important; line-height: 0 !important;
+  transition: background .15s ease, color .15s ease;
+}
+#popup-terkirim .pt-box > button.pt-x:hover,
+#popup-terkirim .pt-box > button.pt-x:focus-visible {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+  outline: none !important;
+}
+#popup-terkirim .pt-box > button.pt-x:active {
+  background: #fecaca !important;
+}
+
+/* X digambar dengan 2 garis agar tepat di tengah */
+#popup-terkirim .pt-box > button.pt-x {
+  position: absolute !important;
+  font-size: 0 !important;
+}
+#popup-terkirim .pt-box > button.pt-x::before,
+#popup-terkirim .pt-box > button.pt-x::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px; height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+#popup-terkirim .pt-box > button.pt-x::before { transform: translate(-50%, -50%) rotate(45deg); }
+#popup-terkirim .pt-box > button.pt-x::after  { transform: translate(-50%, -50%) rotate(-45deg); }

@@ -1,0 +1,82 @@
+/* ===== Detail laporan: foto kecil di kiri, teks berurutan di kanan ===== */
+main:has(> .kolom-kanan) {
+  display: grid !important;
+  grid-template-columns: 340px minmax(0, 1fr);
+  grid-template-areas:
+    "foto deskripsi"
+    "foto judul"
+    "foto info"
+    "foto aksi";
+  grid-template-rows: auto auto auto 1fr;
+  gap: 18px 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  align-items: start;
+}
+main > .kolom-kiri,
+main > .kolom-kanan { display: contents !important; }
+
+.kolom-kiri > section:first-child { grid-area: foto; }
+.kolom-kiri > section[aria-labelledby="deskripsi-heading"] { grid-area: deskripsi; }
+.kolom-kanan > section[aria-labelledby="info-utama-heading"] { grid-area: judul; }
+.kolom-kanan > section[aria-labelledby="info-detail-heading"] { grid-area: info; }
+.kolom-kiri > section[aria-label="Aksi Laporan"] { grid-area: aksi; }
+
+.kolom-kiri > section:first-child { grid-area: foto; }
+.kolom-kiri > section[aria-labelledby="deskripsi-heading"] { grid-area: deskripsi; }
+.kolom-kanan > section[aria-labelledby="info-utama-heading"] { grid-area: judul; }
+.kolom-kanan > section[aria-labelledby="info-detail-heading"] { grid-area: info; }
+.kolom-kiri > section[aria-label="Aksi Laporan"] { grid-area: aksi; }
+
+.kolom-kiri > section:first-child figure { margin: 0; }
+.kolom-kiri > section:first-child img {
+  display: block;
+  width: 100% !important;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.kolom-kiri > section:first-child figcaption {
+  margin-top: 8px;
+  font-size: .78rem;
+  color: #64748b;
+}
+.kolom-kiri > section[aria-label="Aksi Laporan"] a { display: block; text-decoration: none; }
+
+@media (max-width: 800px) {
+  main:has(> .kolom-kanan) {
+    grid-template-columns: 1fr !important;
+    grid-template-areas: "foto" "deskripsi" "judul" "info" "aksi" !important;
+    grid-template-rows: none;
+  }
+}
+
+main:has(> .kolom-kanan) {
+  max-width: 900px !important;
+  grid-template-columns: 260px minmax(0, 1fr) !important;
+  gap: 10px 28px !important;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, .10);
+  padding: 24px 28px !important;
+  margin: 24px auto 40px !important;
+}
+main:has(> .kolom-kanan) section {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+main:has(> .kolom-kanan) h2 { font-size: 1.05rem !important; margin: 0 0 4px !important; }
+.kolom-kanan > section[aria-labelledby="info-utama-heading"] h2 { font-size: 1.35rem !important; }
+main:has(> .kolom-kanan) p { font-size: .88rem; line-height: 1.5; margin: 3px 0 !important; color: #475569; }
+main:has(> .kolom-kanan) table { width: 100%; font-size: .85rem; border-collapse: collapse; }
+main:has(> .kolom-kanan) table caption { display: none; }
+main:has(> .kolom-kanan) th,
+main:has(> .kolom-kanan) td { padding: 6px 0 !important; text-align: left; }
+.kolom-kiri > section[aria-label="Aksi Laporan"] button { width: auto; padding: 9px 20px; font-size: .88rem; }

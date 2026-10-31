@@ -7,15 +7,15 @@
   <meta name="description" content="Pantau perkembangan laporan dan informasi terbaru LingkunganKU.">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/notifikasi.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
+  <script src="/js/clarity.js"></script>
 </head>
 <body>
 
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
   <main class="notif-page">
-    <h1>Notifikasi</h1>
     <p class="notif-sub">Pantau perkembangan laporan dan informasi terbaru.</p>
 
     {{-- Flash: laporan baru saja terkirim --}}
@@ -154,6 +154,9 @@
 
       var baru     = dibaca.indexOf(String(d.id)) === -1 ? ' baru' : '';
       var ikonSvg  = IKON[d.status] || IKON['info'];
+        if (['diproses','diterima','selesai','ditolak','info'].indexOf(d.status) === -1) {
+          ikonSvg = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
+        }
       var dbBadge  = d.dari_db
         ? '<span style="font-size:10px;background:#dbeafe;color:#1d4ed8;padding:1px 7px;border-radius:20px;font-weight:700;margin-left:4px;">Saya</span>'
         : '';

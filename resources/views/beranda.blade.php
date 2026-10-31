@@ -5,17 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ asset('css/base.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/navbar.css') . '?v=4' }}">
+  <link rel="stylesheet" href="{{ asset('css/index.css') . '?v=2' }}">
+  <link rel="stylesheet" href="{{ asset('css/navbar.css') . '?v=9' }}">
   <title>LingkunganKU - Beranda</title>
   <meta name="description" content="Aplikasi pelaporan dan pemantauan masalah lingkungan masyarakat.">
   <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/tentang.css') . '?v=1' }}">
+  <script src="/js/clarity.js"></script>
 </head>
 <body class="page-beranda">
 
   <!-- NAVBAR — diisi oleh navbar.js -->
   <header class="site-header"></header>
-  <script src="{{ asset('js/navbar.js') }}"></script>
+  <script src="{{ asset('js/navbar.js') . '?v=12' }}"></script>
 
   <main id="main-content">
 
@@ -222,8 +224,57 @@
           </article>
         </li>
 
+
+        <!-- Kartu 5 -->
+        <li>
+          <article class="laporan-card">
+            <div class="laporan-card-img-wrap">
+              <img src="{{ asset('assets/images/laporan-pohon-tumbang.jpg') }}"
+                   alt="Foto pohon tumbang di Kebon Jeruk"
+                   class="laporan-card-img" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="laporan-card-img-fallback" aria-hidden="true">
+                <span class="laporan-card-img-fallback-icon">🌳</span>
+                <span class="laporan-card-img-fallback-text">Foto Laporan</span>
+              </div>
+            </div>
+            <div class="laporan-card-body">
+              <h3 class="laporan-card-title">Pohon Tumbang</h3>
+              <p class="laporan-card-lokasi">Jl. Raya Kebon Jeruk, Kebon Jeruk</p>
+              <p class="laporan-card-waktu">1 Hari yang lalu</p>
+              <p class="laporan-card-desc">Pohon besar tumbang dan menutup sebagian badan jalan sehingga arus kendaraan tersendat.</p>
+              <a href="/detail-laporan?id=pohon-tumbang" class="laporan-card-badge badge--diproses">⏳ Diproses</a>
+            </div>
+          </article>
+        </li>
+
+        <!-- Kartu 6 -->
+        <li>
+          <article class="laporan-card">
+            <div class="laporan-card-img-wrap">
+              <img src="{{ asset('assets/images/laporan-taman-kotor.jpg') }}"
+                   alt="Foto taman kotor di Slipi"
+                   class="laporan-card-img" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="laporan-card-img-fallback" aria-hidden="true">
+                <span class="laporan-card-img-fallback-icon">🌿</span>
+                <span class="laporan-card-img-fallback-text">Foto Laporan</span>
+              </div>
+            </div>
+            <div class="laporan-card-body">
+              <h3 class="laporan-card-title">Taman Tidak Terawat</h3>
+              <p class="laporan-card-lokasi">Taman Warga, Slipi</p>
+              <p class="laporan-card-waktu">2 Hari yang lalu</p>
+              <p class="laporan-card-desc">Rumput liar tinggi dan sampah berserakan di taman sehingga tidak nyaman dipakai warga.</p>
+              <a href="/detail-laporan?id=taman-kotor" class="laporan-card-badge badge--menunggu">⏰ Menunggu</a>
+            </div>
+          </article>
+        </li>
       </ul>
     </section>
+
+    @include('partials.tentang')
+    @include('partials.tim')
 
   </main>
 
@@ -252,7 +303,7 @@
     }
   </script>
   <script src="{{ asset('js/faq-data.js') }}"></script>
-  <script src="{{ asset('js/chatbot.js') }}"></script>
+  <script src="{{ asset('js/chatbot.js') . '?v=2' }}"></script>
   <script src="{{ asset('js/chatbot-drag.js') }}"></script>
   <script>
     // Seluruh kartu laporan bisa diklik -> detail laporan

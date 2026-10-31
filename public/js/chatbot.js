@@ -80,12 +80,41 @@
     ketik.setAttribute('aria-label', 'Sedang menulis');
     log.appendChild(ketik);
     gulir();
-    setTimeout(function () {
-      log.removeChild(ketik);
-      if (f) tambah('bot', f.jawab, f.link);
+    if (f) {
+      setTimeout(function () {
+        log.removeChild(ketik);
+        tambah('bot', f.jawab, f.link);
+        isiChip(f.id);
+      }, 450);
+      return;
+    }
+    tanyaAI(pertanyaanTerakhir).then(function (jawaban) {
+      if (ketik.parentNode) log.removeChild(ketik);
+      if (jawaban) tambah('bot', jawaban);
       else tambah('bot', FAQ_CADANGAN);
-      isiChip(f ? f.id : null);
-    }, 450);
+      isiChip(null);
+    });
+  }
+
+  var pertanyaanTerakhir = '';
+
+  function tanyaAI(teks) {
+    var ctl = new AbortController();
+    var batas = setTimeout(function () { ctl.abort(); }, 25000);
+    return fetch('/api/chatbot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ pertanyaan: teks }),
+      signal: ctl.signal
+    })
+    .then(function (r) { return r.text(); })
+    .then(function (t) {
+      var d = null;
+      try { d = JSON.parse(t); } catch (e) {}
+      return d && d.jawaban ? d.jawaban : null;
+    })
+    .catch(function () { return null; })
+    .then(function (j) { clearTimeout(batas); return j; });
   }
 
   function isiChip(kecualiId) {
@@ -105,6 +134,7 @@
     teks = teks.trim();
     if (!teks) return;
     tambah('user', teks);
+    pertanyaanTerakhir = teks;
     balas(langsung || cari(teks));
   }
 

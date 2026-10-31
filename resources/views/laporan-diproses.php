@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
   <link rel="stylesheet" href="/css/laporan.css">
   <title>LingkunganKU - Laporan Diproses</title>
   <meta name="description" content="Daftar laporan yang sedang dalam proses penanganan.">
+  <script src="/js/clarity.js"></script>
 </head>
 <body class="page-laporan">
 
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
   <main>
     <div class="laporan-page">

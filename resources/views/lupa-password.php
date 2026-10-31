@@ -245,6 +245,7 @@
       .auth-field input { font-size: 1rem; }
     }
   </style>
+  <script src="/js/clarity.js"></script>
 </head>
 <body class="auth-page">
 
@@ -253,7 +254,7 @@
 
     <div class="auth-card-header">
       <div class="auth-card-logo">
-        <img src="/assets/images/logo.png" alt="Logo LingkunganKU"
+        <img src="/assets/images/logo.webp" alt="Logo LingkunganKU"
           onerror="this.style.display='none'">
       </div>
       <div class="auth-card-title">

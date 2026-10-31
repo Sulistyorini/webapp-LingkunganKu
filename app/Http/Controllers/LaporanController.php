@@ -15,15 +15,27 @@ class LaporanController extends Controller
             'deskripsi'     => 'required|string|max:5000',
             'kecamatan'     => 'required|string|max:100',
             'kelurahan'     => 'required|string|max:100',
+            'alamat_lokasi' => ['nullable', 'string', 'max:150'],
             'titik_maps'    => [
                 'nullable',
                 'regex:/^-?\d{1,3}(?:\.\d+)?,\s*-?\d{1,3}(?:\.\d+)?$/',
             ],
-            'foto_laporan'   => 'nullable',
-            'foto_laporan.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+            'foto_laporan'   => 'required|array|min:1|max:1',
+            'foto_laporan.*' => 'image|mimes:jpg,jpeg,png,webp',
             'persetujuan'   => 'accepted',
             'nama_pelapor'  => 'nullable|string|max:255',
             'email_pelapor' => 'nullable|string|max:255',
+        ], [
+            'foto_laporan.required' => 'Foto wajib dilampirkan, minimal 1 foto.',
+            'foto_laporan.min'      => 'Foto wajib dilampirkan, minimal 1 foto.',
+            'foto_laporan.max'      => 'Hanya 1 foto per laporan.',
+            'foto_laporan.*.image'  => 'File harus berupa gambar.',
+            'foto_laporan.*.mimes'  => 'Foto harus berformat JPG, PNG, atau WebP.',
+            'persetujuan.accepted'  => 'Centang persetujuan terlebih dahulu.',
+            'deskripsi.required'    => 'Deskripsi wajib diisi.',
+            'kecamatan.required'    => 'Kecamatan wajib dipilih.',
+            'kelurahan.required'    => 'Kelurahan wajib dipilih.',
+            'kategori.required'     => 'Jenis laporan wajib dipilih.',
         ]);
 
         // ── Simpan foto (support multiple) ──────────────────────────────
@@ -37,7 +49,7 @@ class LaporanController extends Controller
             }
             foreach ($files as $file) {
                 if ($file && $file->isValid()) {
-                    $fotoPaths[] = $file->store('laporan', 'public');
+                    $fotoPaths[] = 'data:' . $file->getMimeType() . ';base64,' . base64_encode(file_get_contents($file->getRealPath()));
                 }
             }
         }
@@ -62,6 +74,12 @@ class LaporanController extends Controller
             $lokasi .= ' (' . $validated['titik_maps'] . ')';
         }
 
+        if (!empty($validated['alamat_lokasi'])) {
+            $lokasi .= ' – ' . $validated['alamat_lokasi'];
+        }
+
+        $lokasi = mb_substr($lokasi, 0, 255); // kolom lokasi maksimal 255 karakter
+
         // ── Simpan ke database ───────────────────────────────────────────
         try {
             Laporan::create([
@@ -77,15 +95,19 @@ class LaporanController extends Controller
                 'catatan_admin' => null,
             ]);
         } catch (\Throwable $e) {
-            // Hapus foto jika gagal simpan
-            foreach ($fotoPaths as $path) {
-                Storage::disk('public')->delete($path);
-            }
             throw $e;
         }
 
+        if ($request->expectsJson()) {
+
+            return response()->json(['ok' => true]);
+
+        }
+
+
         return redirect()
-            ->route('notifikasi')
+
+            ->to('/buat-laporan?terkirim=1')
             ->with('laporan_terkirim', true);
     }
 }
