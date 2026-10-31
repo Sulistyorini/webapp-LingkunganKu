@@ -1,0 +1,174 @@
+    /* ── Proses Penanganan ── */
+    section[aria-labelledby="proses-heading"] {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+
+    section[aria-labelledby="proses-heading"] h2 {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-4);
+    }
+
+    section[aria-labelledby="proses-heading"] > p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-5);
+    }
+
+    /* Timeline */
+    ol[aria-label="Tahapan proses penanganan"] {
+      list-style: none;
+      position: relative;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: center;
+      column-gap: 12px;
+      position: relative;
+      margin-bottom: var(--space-5);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li:last-child { margin-bottom: 0; }
+
+    ol[aria-label="Tahapan proses penanganan"] li::before {
+      content: none;
+      display: none;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"]::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: var(--timeline-top, 14px);
+      height: var(--timeline-height, 0px);
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-selesai), var(--color-primary-light));
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] .timeline-indicator {
+      grid-column: 1;
+      grid-row: 1;
+      width: 28px;
+      height: 28px;
+      background-color: var(--color-selesai);
+      color: white;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 2px solid var(--color-white);
+      box-shadow: 0 0 0 2px var(--color-selesai);
+      z-index: 1;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] .timeline-indicator::before {
+      content: '✓';
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--pending .timeline-indicator {
+      background-color: #cbd5e1;
+      box-shadow: 0 0 0 2px #cbd5e1;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--pending .timeline-indicator::before,
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--current .timeline-indicator::before {
+      content: '';
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--pending h3 {
+      color: #64748b;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--current .timeline-indicator {
+      background-color: #ffffff;
+      box-shadow: 0 0 0 2px var(--color-primary);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--current h3 {
+      color: var(--color-primary);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] article {
+      grid-column: 2;
+      grid-row: 1;
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] h3 {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-1);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] p {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-1);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] time {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+    }
+
+/* ===== Area detail: kartu laporan + panel proses di kanan ===== */
+#area-detail {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 16px;
+}
+#area-detail > main:has(> .kolom-kanan) {
+  flex: 0 1 900px;
+  min-width: 0;
+  margin: 24px 0 40px !important;
+}
+
+#panel-proses {
+  flex: none;
+  width: 0;
+  margin-left: 0;
+  margin-top: 24px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: width .4s ease, margin-left .4s ease, opacity .3s ease;
+}
+#panel-proses.terbuka {
+  width: 340px;
+  margin-left: 24px;
+  opacity: 1;
+  pointer-events: auto;
+}
+#panel-proses > section {
+  width: 340px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, .10);
+  padding: 22px 20px;
+}
+@media (max-width: 900px) {
+  #area-detail { flex-direction: column; align-items: center; }
+  #panel-proses { width: 100%; max-height: 0; margin: 0; transition: max-height .4s ease, opacity .3s ease; }
+  #panel-proses.terbuka { width: 100%; max-height: 900px; margin: 0 0 24px; }
+  #panel-proses > section { width: 100%; }
+}

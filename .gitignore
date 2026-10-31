@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/framework/views/.gitignore
 /vendor
 .env
 .env.backup
@@ -22,3 +23,10 @@ yarn-error.log
 /.vscode
 /.zed
 *.bak*
+wasmer.toml
+backup-auth/
+backup-img/
+*.bak
+foto-tes.jpg
+.htaccess-infinityfree
+.htaccess.new

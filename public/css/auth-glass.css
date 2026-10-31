@@ -1,0 +1,247 @@
+/* Tampilan glassmorphism untuk login & register */
+body.auth-page {
+  background:
+    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+    url('/assets/images/login-bg.jpg') center / cover no-repeat,
+    linear-gradient(135deg, #0f766e 0%, #1d4ed8 100%);
+}
+
+.auth-card {
+  max-width: 420px;
+  padding: 2.5rem 2rem;
+  background: rgba(255,255,255,.14);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+  color: #fff;
+}
+.auth-card:has(#form-register) { max-width: 600px; }
+.auth-card:has(#form-login) .auth-fields-row { grid-template-columns: 1fr; gap: 0; }
+
+.auth-card-header { border-bottom: 1px solid rgba(255,255,255,.25); }
+.auth-card-title h1,
+.auth-form-title h2 { color: #fff; }
+.auth-card-title p,
+.auth-form-title p { color: rgba(255,255,255,.8); }
+.auth-form-title { text-align: center; }
+
+.auth-back { color: rgba(255,255,255,.8); }
+.auth-back:hover { color: #fff; }
+
+.auth-field label { color: #fff; }
+.auth-card .auth-field input {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 999px;
+  padding: .8rem 1.2rem;
+}
+.auth-card .pw-wrap input { padding-right: 2.75rem; }
+.auth-card .auth-field input::placeholder { color: rgba(255,255,255,.7); }
+.auth-card .auth-field input:focus {
+  background: rgba(255,255,255,.2);
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.18);
+}
+.auth-card .auth-field input.input-error { border-color: #fca5a5; background: rgba(239,68,68,.15); }
+.auth-card .auth-field input:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.auth-card .pw-wrap .pw-toggle { color: rgba(255,255,255,.85) !important; }
+.auth-card .pw-wrap .pw-toggle:hover { color: #fff !important; }
+
+.field-error { color: #fecaca; }
+.auth-error-banner {
+  background: rgba(239,68,68,.25);
+  border: 1px solid rgba(254,202,202,.6);
+  color: #fff;
+}
+
+.strength-bar { background: rgba(255,255,255,.25); }
+.strength-label.lemah  { color: #fecaca; }
+.strength-label.sedang { color: #fde68a; }
+.strength-label.kuat   { color: #bbf7d0; }
+
+.auth-forgot { text-align: right; }
+.auth-forgot a,
+.auth-login-link a { color: #fff; font-weight: 700; }
+.auth-login-link { color: rgba(255,255,255,.85); }
+
+.auth-card .auth-btn-primary {
+  background: #fff;
+  color: #0f172a;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.auth-card .auth-btn-primary:hover { background: #f1f5f9; }
+
+.auth-divider::before,
+.auth-divider::after { background: rgba(255,255,255,.3); }
+.auth-divider span { color: rgba(255,255,255,.8); }
+
+.auth-card .auth-btn-secondary {
+  color: #fff;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.7);
+  border-radius: 999px;
+}
+.auth-card .auth-btn-secondary:hover { background: rgba(255,255,255,.15); }
+
+@media (max-width: 600px) {
+  .auth-card { padding: 1.75rem 1.25rem; }
+}
+
+/* Saat dibuka di dalam popup (iframe) */
+html.embed {
+  background:
+    linear-gradient(rgba(8,30,70,.35), rgba(8,30,70,.35)),
+    url('/assets/images/hero-city.webp') center / cover no-repeat !important;
+}
+html.embed body.auth-page { background: transparent !important; }
+html.embed .auth-back { display: none; }
+html.embed .auth-card {
+  position: relative;
+  background: rgba(37,99,235,.30);
+  border: 1px solid rgba(255,255,255,.35);
+  box-shadow: 0 24px 60px rgba(0,0,0,.45);
+}
+html.embed .embed-close {
+  position: absolute !important; top: 12px !important; right: 14px !important;
+  width: 34px !important; height: 34px !important; min-width: 0 !important; min-height: 0 !important;
+  padding: 0 !important; margin: 0 !important; border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.55) !important;
+  background: rgba(255,255,255,.16) !important; color: #fff !important;
+  font-size: 22px !important; line-height: 1 !important; box-shadow: none !important;
+  display: flex !important; align-items: center; justify-content: center; cursor: pointer;
+}
+html.embed .embed-close:hover { background: rgba(255,255,255,.32) !important; }
+
+/* ===== Versi ringkas: muat satu layar, latar gambar beranda ===== */
+html { background: #0b2a55; }
+body.auth-page {
+  min-height: 100vh;
+  padding: 12px !important;
+  align-items: center !important;
+  background:
+    linear-gradient(rgba(8,30,70,.35), rgba(8,30,70,.35)),
+    url('/assets/images/hero-city.webp') center / cover no-repeat fixed !important;
+}
+.auth-card {
+  max-width: 400px !important;
+  padding: 1.1rem 1.5rem 1.2rem !important;
+  background: rgba(37,99,235,.30) !important;
+  border: 1px solid rgba(255,255,255,.35) !important;
+  border-radius: 18px;
+}
+.auth-card:has(#form-register) { max-width: 560px !important; }
+.auth-back { margin-bottom: .5rem !important; font-size: .75rem; }
+.auth-card-header { margin-bottom: .6rem !important; padding-bottom: .6rem !important; gap: .6rem; }
+.auth-card-logo, .auth-card-logo img { width: 38px !important; height: 38px !important; }
+.auth-card-title h1 { font-size: .95rem !important; }
+.auth-card-title p { font-size: .7rem !important; }
+.auth-form-title { margin-bottom: .6rem !important; }
+.auth-form-title h2 { font-size: 1.25rem !important; margin-bottom: .1rem !important; }
+.auth-form-title p { font-size: .78rem !important; }
+.auth-field { margin-bottom: .6rem !important; }
+.auth-field label { font-size: .78rem !important; margin-bottom: .25rem !important; }
+.auth-card .auth-field input { padding: .55rem 1rem !important; font-size: .85rem !important; }
+.auth-card .pw-wrap input { padding-right: 2.5rem !important; }
+.auth-forgot { margin-bottom: .6rem !important; font-size: .78rem; }
+.auth-card .auth-btn-primary { padding: .65rem 1rem !important; font-size: .9rem !important; }
+.auth-divider { margin: .7rem 0 !important; }
+.auth-card .auth-btn-secondary { padding: .6rem 1rem !important; font-size: .88rem !important; }
+.auth-login-link { margin-top: .7rem !important; font-size: .8rem; }
+.field-error { margin-top: .15rem; font-size: .7rem; }
+
+/* Layar pendek: rapatkan lagi */
+@media (max-height: 700px) {
+  .auth-card-header { display: none !important; }
+  .auth-card { padding-top: .9rem !important; }
+}
+
+/* Tombol close: hanya tanda X, lingkaran putih muncul saat hover */
+html.embed .embed-close {
+  top: 10px !important; right: 12px !important;
+  width: 32px !important; height: 32px !important;
+  background: transparent !important;
+  border: none !important;
+  color: #fff !important;
+  font-size: 26px !important;
+  transition: background .15s, color .15s;
+}
+html.embed .embed-close:hover,
+html.embed .embed-close:focus-visible {
+  background: #fff !important;
+  color: #1d4ed8 !important;
+}
+
+/* ===== Tombol close v3: tanpa lingkaran, X besar di pojok, bulat putih saat hover ===== */
+html.embed .auth-card button.embed-close,
+html.embed .auth-card button.embed-close:active {
+  position: absolute !important;
+  top: 8px !important; right: 8px !important;
+  width: 40px !important; height: 40px !important;
+  min-width: 0 !important; min-height: 0 !important;
+  padding: 0 !important; margin: 0 !important;
+  border: 0 !important; border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important; outline: none !important;
+  font-size: 0 !important; line-height: 0 !important; color: transparent !important;
+  display: block !important; cursor: pointer;
+  transition: background .15s;
+}
+html.embed .auth-card button.embed-close::before,
+html.embed .auth-card button.embed-close::after {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 20px; height: 3px; margin: -1.5px 0 0 -10px;
+  background: #fff; border-radius: 2px;
+  transition: background .15s;
+}
+html.embed .auth-card button.embed-close::before { transform: rotate(45deg); }
+html.embed .auth-card button.embed-close::after  { transform: rotate(-45deg); }
+
+html.embed .auth-card button.embed-close:hover,
+html.embed .auth-card button.embed-close:focus-visible {
+  background: #fff !important;
+}
+html.embed .auth-card button.embed-close:hover::before,
+html.embed .auth-card button.embed-close:hover::after,
+html.embed .auth-card button.embed-close:focus-visible::before,
+html.embed .auth-card button.embed-close:focus-visible::after {
+  background: #1d4ed8;
+}
+
+/* ===== Tombol close v4: lebih kecil ===== */
+html.embed .auth-card button.embed-close,
+html.embed .auth-card button.embed-close:active {
+  top: 10px !important; right: 10px !important;
+  width: 28px !important; height: 28px !important;
+}
+html.embed .auth-card button.embed-close::before,
+html.embed .auth-card button.embed-close::after {
+  width: 12px; height: 2px; margin: -1px 0 0 -6px;
+}
+
+/* Halaman penuh: link kembali jadi tanda X di pojok kanan atas */
+html:not(.embed) .auth-card { position: relative; }
+html:not(.embed) .auth-back {
+  position: absolute; top: 10px; right: 10px; margin: 0 !important;
+  width: 28px; height: 28px; border-radius: 50%;
+  font-size: 0 !important; color: transparent !important;
+  display: block; transition: background .15s;
+}
+html:not(.embed) .auth-back::before,
+html:not(.embed) .auth-back::after {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 12px; height: 2px; margin: -1px 0 0 -6px;
+  background: #fff; border-radius: 2px;
+}
+html:not(.embed) .auth-back::before { transform: rotate(45deg); }
+html:not(.embed) .auth-back::after  { transform: rotate(-45deg); }
+html:not(.embed) .auth-back:hover { background: #fff; }
+html:not(.embed) .auth-back:hover::before,
+html:not(.embed) .auth-back:hover::after { background: #1d4ed8; }

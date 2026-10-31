@@ -6,6 +6,8 @@
   <title>LingkunganKU - Detail Laporan</title>
   <meta name="description" content="Halaman detail laporan masalah lingkungan beserta informasi lokasi dan status.">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/detail-laporan.css?v=1">
+  <link rel="stylesheet" href="/css/proses-penanganan.css?v=1">
   <style>
     /* ── Detail Laporan — Desktop Layout ── */
 
@@ -358,7 +360,41 @@
     body > header nav a svg {
       flex-shrink: 0;
     }
+  
+    /* Header penuh selebar layar, isi sejajar dengan konten */
+    body > header {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      box-sizing: border-box;
+      padding: 14px max(var(--space-6), calc((100% - 1100px) / 2 + var(--space-6)));
+    }
+  
+    /* Header seragam: selebar layar, tinggi sama dengan navbar menu (54px) */
+    body > header {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      box-sizing: border-box;
+      height: 54px;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: max(var(--space-6), calc((100% - 1100px) / 2 + var(--space-6)));
+      padding-right: max(var(--space-6), calc((100% - 1100px) / 2 + var(--space-6)));
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    body > header nav a h1 {
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
   </style>
+  <script src="/js/clarity.js"></script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','z4r4xbuiu3');</script>
 </head>
 <body>
 
@@ -393,6 +429,7 @@
     </nav>
   </header>
 
+  <div id="area-detail">
   <main>
     <div class="kolom-kiri">
       <!-- Foto Laporan -->
@@ -401,7 +438,7 @@
         <figure>
           @if (isset($laporan))
             @if ($laporan->foto)
-              <img id="foto-laporan" src="{{ Storage::url($laporan->foto) }}"
+              <img id="foto-laporan" src="{{ $laporan->foto_url }}"
                    alt="Foto laporan {{ $laporan->judul }}" width="360">
               <figcaption id="foto-caption">Foto dokumentasi laporan.</figcaption>
             @else
@@ -468,6 +505,10 @@
       </section>
     </div>
   </main>
+    <aside id="panel-proses" aria-label="Proses penanganan laporan">
+      @include('partials.proses-penanganan')
+    </aside>
+  </div>
 
   @unless (isset($laporan))
   <script>
@@ -625,5 +666,6 @@
   </script>
   @endunless
 
+  <script src="/js/panel-penanganan.js?v=1"></script>
 </body>
 </html>

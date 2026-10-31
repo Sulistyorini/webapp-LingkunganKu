@@ -6,7 +6,7 @@
   <title>Perubahan Jadwal Sampah - LingkunganKU</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
   <style>
     .pb-page {
       max-width: 720px;
@@ -182,11 +182,12 @@
       margin: 28px 0 12px;
     }
   </style>
+  <script src="/js/clarity.js"></script>
 </head>
 <body>
 
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
   <main class="pb-page">
 

@@ -48,7 +48,7 @@
                 {{-- Foto --}}
                 @if ($laporan->foto)
                     <section class="content-panel" style="margin-bottom:20px;padding:0;overflow:hidden;">
-                        <img src="{{ Storage::url($laporan->foto) }}"
+                        <img src="{{ $laporan->foto_url }}"
                              alt="Foto laporan"
                              style="width:100%;max-height:360px;object-fit:cover;display:block;border-radius:14px;">
                     </section>

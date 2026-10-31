@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
 {
     public function showLogin()
     {
-        if (session()->has('admin_id')) {
-            return redirect()->route('admin.dashboard');
-        }
-
         return view('admin.login');
     }
 
@@ -30,35 +27,35 @@ class AdminAuthController extends Controller
 
         if (!$admin || !Hash::check($credentials['password'], $admin->password)) {
             return back()
-                ->withErrors([
-                    'email' => 'Email atau password admin tidak sesuai.',
-                ])
+                ->withErrors(['email' => 'Email atau password admin tidak sesuai.'])
                 ->onlyInput('email');
         }
 
-        $request->session()->regenerate();
+        $token = Crypt::encryptString(json_encode([
+            'id'    => $admin->id,
+            'name'  => $admin->name,
+            'email' => $admin->email,
+            'exp'   => time() + 7200,
+        ]));
 
-        session([
-            'admin_id' => $admin->id,
-            'admin_name' => $admin->name,
-            'admin_email' => $admin->email,
-        ]);
+        $url = route('admin.dashboard');
 
-        return redirect()->route('admin.dashboard');
+        return response(
+            '<!doctype html><meta charset="utf-8"><p>Masuk...</p><script>'
+            . 'document.cookie="admin_token="+encodeURIComponent(' . json_encode($token) . ')'
+            . '+"; path=/; max-age=7200; secure; samesite=lax";'
+            . 'location.replace(' . json_encode($url) . ');</script>'
+        );
     }
 
     public function logout(Request $request)
     {
-        $request->session()->forget([
-            'admin_id',
-            'admin_name',
-            'admin_email',
-        ]);
+        $url = route('admin.login');
 
-        $request->session()->regenerateToken();
-
-        return redirect()
-            ->route('admin.login')
-            ->with('success', 'Kamu berhasil logout.');
+        return response(
+            '<!doctype html><meta charset="utf-8"><p>Keluar...</p><script>'
+            . 'document.cookie="admin_token=; path=/; max-age=0; secure; samesite=lax";'
+            . 'location.replace(' . json_encode($url) . ');</script>'
+        );
     }
 }

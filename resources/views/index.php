@@ -6,16 +6,17 @@
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
   <title>LingkunganKU - Beranda</title>
   <meta name="description" content="Aplikasi pelaporan dan pemantauan masalah lingkungan masyarakat.">
   <link rel="stylesheet" href="/css/chatbot.css">
+  <script src="/js/clarity.js"></script>
 </head>
 <body class="page-beranda">
 
   <!-- NAVBAR — diisi oleh navbar.js -->
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
   <main id="main-content">
 
@@ -270,7 +271,7 @@
     }
   </script>
   <script src="/js/faq-data.js"></script>
-  <script src="/js/chatbot.js"></script>
+  <script src="/js/chatbot.js?v=2"></script>
   <script src="/js/chatbot-drag.js"></script>
   <script>
     // Seluruh kartu laporan bisa diklik -> detail laporan

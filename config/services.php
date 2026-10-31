@@ -1,7 +1,12 @@
 <?php
 
 return [
+    'google' => ['client_id' => env('GOOGLE_CLIENT_ID')],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'model' => env('GEMINI_MODEL'),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

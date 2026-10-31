@@ -167,3 +167,35 @@ Route::prefix('admin')
         Route::post('/logout', [AdminAuthController::class, 'logout'])
             ->name('logout');
     });
+
+// ── Auth warga (server-side) ──
+Route::post('/register', [\App\Http\Controllers\WargaAuthController::class, 'register'])
+    ->middleware('throttle:10,1')->name('register.submit');
+Route::post('/login', [\App\Http\Controllers\WargaAuthController::class, 'login'])
+    ->middleware('throttle:10,1')->name('login.submit');
+Route::post('/logout-warga', [\App\Http\Controllers\WargaAuthController::class, 'logout'])
+    ->name('logout.warga');
+
+// ── Verifikasi email ──
+Route::get('/email/verify', function () {
+    return view('verifikasi-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (\Illuminate\Http\Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('terkirim', true);
+})->middleware(['auth', 'throttle:3,1'])->name('verification.send');
+Route::post('/login/google', [\App\Http\Controllers\GoogleAuthController::class, 'login'])->middleware('throttle:10,1')->name('login.google');
+Route::post('/api/chatbot', [\App\Http\Controllers\ChatbotController::class, 'ask'])->middleware('throttle:8,1')->name('api.chatbot');
+
+// Profil warga (butuh sesi login di server)
+Route::middleware(['auth', 'throttle:30,1'])->group(function () {
+    Route::get('/profil/data', [\App\Http\Controllers\ProfilController::class, 'data']);
+    Route::post('/profil/data', [\App\Http\Controllers\ProfilController::class, 'ubah']);
+    Route::post('/profil/foto', [\App\Http\Controllers\ProfilController::class, 'foto']);
+});

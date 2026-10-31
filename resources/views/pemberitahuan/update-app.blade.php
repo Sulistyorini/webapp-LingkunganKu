@@ -6,7 +6,7 @@
   <title>Update Aplikasi v1.5 - LingkunganKU</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
   <style>
     .pb-page {
       max-width: 720px;
@@ -198,11 +198,12 @@
     .pb-info-row span:first-child { color: #64748b; }
     .pb-info-row span:last-child  { color: #0f172a; font-weight: 600; }
   </style>
+  <script src="/js/clarity.js"></script>
 </head>
 <body>
 
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
   <main class="pb-page">
 
@@ -216,7 +217,7 @@
     {{-- Header --}}
     <div class="pb-header">
       <div class="pb-header-ikon">
-        <img src="/assets/images/logo.png" alt="Logo LingkunganKU"
+        <img src="/assets/images/logo.webp" alt="Logo LingkunganKU"
              onerror="this.parentNode.innerHTML='📱'">
       </div>
       <div>
@@ -320,7 +321,7 @@
     <div class="pb-card" style="padding:20px;">
       <div class="pb-about" style="padding:0;border:none;margin:0;">
         <div class="pb-about-logo">
-          <img src="/assets/images/logo.png" alt="Logo"
+          <img src="/assets/images/logo.webp" alt="Logo"
                onerror="this.parentNode.style.background='#eff6ff';this.parentNode.innerHTML='<span style=font-size:32px>🌿</span>'">
         </div>
         <div>

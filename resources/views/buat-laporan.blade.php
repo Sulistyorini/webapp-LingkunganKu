@@ -6,19 +6,20 @@
   <meta name="description" content="Formulir pembuatan laporan masalah lingkungan dalam 3 langkah: Jenis Laporan, Lokasi, dan Konfirmasi.">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/buat-laporan.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/buat-laporan.css?v=2">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   >
+  <script src="/js/clarity.js"></script>
 </head>
 <body>
 
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
 
   <header>
@@ -57,6 +58,16 @@
     enctype="multipart/form-data"
 >
     @csrf
+    @if ($errors->any())
+    <div role="alert" style="margin:0 0 16px;padding:14px 16px;border-radius:12px;background:#fef2f2;border:1px solid #fca5a5;color:#b91c1c;font-size:14px;font-weight:600;line-height:1.5;">
+      Laporan belum terkirim:
+      <ul style="margin:6px 0 0 18px;padding:0;font-weight:500;">
+        @foreach ($errors->all() as $pesan)
+          <li>{{ $pesan }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
     <input type="hidden" id="hidden-nama-pelapor"  name="nama_pelapor">
     <input type="hidden" id="hidden-email-pelapor" name="email_pelapor">
 
@@ -119,8 +130,8 @@
         <fieldset>
           <legend>Foto / Dokumentasi</legend>
           <label for="foto-laporan">Tambah Foto</label>
-          <input type="file" id="foto-laporan" name="foto_laporan" accept="image/webp, image/png, image/jpeg" multiple>
-          <p>Format yang diterima: WebP, PNG, JPG. Maksimal 5 MB.</p>
+          <input type="file" id="foto-laporan" name="foto_laporan[]" accept="image/webp, image/png, image/jpeg">
+          <p>Format: WebP, PNG, JPG. Minimal 1 foto, maksimal 3 foto (maks. 2 MB per foto).</p>
           <!-- Preview langsung di langkah 1 -->
           <div id="preview-step1" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;"></div>
         </fieldset>
@@ -170,6 +181,12 @@
               </select>
             </li>
 
+
+            <li>
+              <label for="alamat-lokasi">Alamat / Keterangan Lokasi</label>
+              <input type="text" id="alamat-lokasi" name="alamat_lokasi" maxlength="150" placeholder="Contoh: Jl. Raya Kediri No. 5, depan balai desa" value="{{ old('alamat_lokasi') }}">
+              <p>Terisi otomatis dari titik di peta. Tambahkan RT/RW atau patokan jika tahu, misalnya: RT 03 RW 05, depan balai desa.</p>
+            </li>
             <li>
               <label for="titik-maps">Arahkan Titik Maps</label>
               <input type="text" id="titik-maps" name="titik_maps" placeholder="Contoh: -7.6150, 111.9465">
@@ -426,6 +443,8 @@
         q: namaKelurahan,
         lat: kecamatan.koordinat[0],
         lon: kecamatan.koordinat[1],
+        bbox: [kecamatan.koordinat[1] - 0.12, kecamatan.koordinat[0] - 0.12,
+               kecamatan.koordinat[1] + 0.12, kecamatan.koordinat[0] + 0.12].join(','),
         limit: 10
       });
 
@@ -565,6 +584,37 @@
       return kecocokan.length === 1 ? kecocokan[0] : null;
     }
 
+    var kolomAlamat = document.getElementById('alamat-lokasi');
+    if (kolomAlamat) {
+      // jika user mengetik sendiri, jangan ditimpa hasil peta
+      kolomAlamat.addEventListener('input', function () {
+        kolomAlamat.dataset.manual = kolomAlamat.value.trim() ? '1' : '0';
+      });
+    }
+
+    function isiAlamatOtomatis(hasil) {
+      if (!kolomAlamat || kolomAlamat.dataset.manual === '1') return;
+      var a = hasil.address || {};
+      var bagian = [
+        (a.road ? a.road + (a.house_number ? ' No. ' + a.house_number : '') : null),
+        a.neighbourhood || a.hamlet,
+        a.village || a.suburb,
+        a.city_district || a.county || a.municipality
+      ].filter(Boolean);
+      var teks = bagian.length
+        ? bagian.join(', ')
+        : (hasil.display_name || '').replace(/,\s*Indonesia$/, '').replace(/,\s*\d{5}/, '');
+      var sumberRtRw = [a.neighbourhood, a.hamlet, a.quarter, a.residential, a.suburb, a.road, hasil.display_name]
+        .filter(Boolean).join(' ');
+      var rt = sumberRtRw.match(/\bRT\.?\s*0*(\d{1,3})\b/i);
+      var rw = sumberRtRw.match(/\bRW\.?\s*0*(\d{1,3})\b/i);
+      if ((rt || rw) && !/\bRT\b/i.test(teks)) {
+        teks += ', ' + [rt ? 'RT ' + ('0' + rt[1]).slice(-2) : '', rw ? 'RW ' + ('0' + rw[1]).slice(-2) : '']
+          .filter(Boolean).join(' ');
+      }
+      kolomAlamat.value = teks.slice(0, 150);
+    }
+
     function perbaruiDropdownDariKoordinat(koordinat) {
       var parameter = new URLSearchParams({
         format: 'jsonv2',
@@ -584,6 +634,7 @@
         })
         .then(function (hasil) {
           var alamat = hasil.address || {};
+          isiAlamatOtomatis(hasil);
           var kecamatan = cariKecamatanDariAlamat(alamat);
           var lokasiDesa = cariLokasiDesaDariAlamat(alamat, kecamatan);
           if (!kecamatan && lokasiDesa) {
@@ -872,7 +923,88 @@
 
     // Inisialisasi: kelurahan disabled sampai kecamatan dipilih
     kelurahanSelect.disabled = true;
+
+    // Kunci isian lokasi lain sampai Kecamatan dipilih
+    var kolomAlamatKunci = document.getElementById('alamat-lokasi');
+    var elemenPeta = document.getElementById('peta-lokasi');
+    function terapkanKunciLokasi() {
+      var terkunci = !kecamatanSelect.value;
+      [kolomAlamatKunci, koordinatInput].forEach(function (el) {
+        if (el) el.disabled = terkunci;
+      });
+      if (elemenPeta) elemenPeta.classList.toggle('peta-terkunci', terkunci);
+    }
+    kecamatanSelect.addEventListener('change', terapkanKunciLokasi);
+    setInterval(terapkanKunciLokasi, 400);
+    tombolLokasiSaya.disabled = false;
+
+    // Kosongkan titik awal: koordinat baru terisi setelah user memilih
+    koordinatInput.value = '';
+    if (penandaLokasi) { penandaLokasi.closePopup(); }
+    petaStatus.textContent = 'Pilih kecamatan terlebih dahulu, lalu tentukan titik lokasi di peta.';
+    terapkanKunciLokasi();
+
+    // Pasang klik-di-peta begitu peta selesai dibuat (peta dibuat belakangan)
+    var pemasangKlikPeta = setInterval(function () {
+      if (!petaLokasi || !penandaLokasi) return;
+      clearInterval(pemasangKlikPeta);
+      if (petaLokasi._klikDipasang) return;
+      petaLokasi._klikDipasang = true;
+      petaLokasi.on('click', function (e) {
+        pilihTitikDiPeta([e.latlng.lat, e.latlng.lng]);
+      });
+      penandaLokasi.on('dragend', function () {
+        var k = penandaLokasi.getLatLng();
+        perbaruiDropdownDariKoordinat([k.lat, k.lng]).catch(function () {
+          petaStatus.textContent = 'Titik dipilih, tetapi alamat tidak dapat dicari. Isi alamat secara manual.';
+        });
+      });
+    }, 300);
+
+    // Klik di peta = pindahkan penanda ke titik itu; geser penanda tetap bisa
+    function pilihTitikDiPeta(koordinat) {
+      var teks = koordinat.map(function (n) { return n.toFixed(6); }).join(', ');
+      koordinatInput.value = teks;
+      penandaLokasi.setLatLng(koordinat).bindPopup('Titik terpilih: ' + teks).openPopup();
+      petaStatus.textContent = 'Titik lokasi dipilih pada koordinat ' + teks + '. Mencari alamat...';
+      perbaruiDropdownDariKoordinat(koordinat).catch(function () {
+        petaStatus.textContent = 'Titik dipilih pada koordinat ' + teks + ', tetapi alamat tidak dapat dicari. Isi alamat secara manual.';
+      });
+    }
+    if (petaLokasi && penandaLokasi) {
+      petaLokasi.on('click', function (e) {
+        pilihTitikDiPeta([e.latlng.lat, e.latlng.lng]);
+      });
+      penandaLokasi.on('dragend', function () {
+        var k = penandaLokasi.getLatLng();
+        perbaruiDropdownDariKoordinat([k.lat, k.lng]).catch(function () {
+          petaStatus.textContent = 'Titik dipilih, tetapi alamat tidak dapat dicari. Isi alamat secara manual.';
+        });
+      });
+    }
   </script>
 
+@if (session('laporan_terkirim') || request()->query('terkirim'))
+<style>#popup-terkirim[hidden]{display:none !important}</style>
+<div id="popup-terkirim" role="dialog" aria-modal="true" aria-label="Laporan terkirim">
+  <div class="pt-box">
+    <button type="button" class="pt-x" id="pt-tutup" aria-label="Tutup"></button>
+    <div class="pt-ikon">&#10003;</div>
+    <h2>Laporan terkirim</h2>
+    <p>Terima kasih, laporanmu sudah masuk dan akan segera ditinjau.</p>
+    <a class="pt-link" href="/notifikasi">Lihat Notifikasi</a>
+  </div>
+</div>
+<script>
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  document.getElementById('pt-tutup').addEventListener('click', function () {
+    document.getElementById('popup-terkirim').hidden = true;
+  });
+</script>
+@endif
+<script src="/js/laporan-fokus.js?v=2"></script>
+  <script src="/js/foto-cek.js?v=3"></script>
+  <script src="/js/foto-kompres.js?v=1"></script>
+  <script src="/js/foto-kirim.js?v=3"></script>
 </body>
 </html>

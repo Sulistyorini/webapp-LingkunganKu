@@ -21,7 +21,8 @@
     { id: 'laporan',    teks: 'Laporan',      href: '/laporan' },
     { id: 'buat',       teks: 'Buat Laporan', href: '/buat-laporan' },
     { id: 'notifikasi', teks: 'Notifikasi',   href: '/notifikasi' },
-    { id: 'profil',     teks: 'Profil',       href: '/profil' }
+    { id: 'profil',     teks: 'Profil',       href: '/profil' },
+    { id: 'tentang',    teks: 'Tentang',      href: '/#tentang' }
   ];
 
   var menuHtml = MENU.map(function (m) {
@@ -32,7 +33,7 @@
   host.innerHTML =
     '<div class="navbar">' +
       '<a class="brand" href="/">' +
-        '<img src="/assets/images/logo.png" alt="Logo LingkunganKu"><span class="brand-teks">Lingkungan<span class="brand-ku">Ku</span></span>' +
+        '<img src="/assets/images/logo.webp" alt="Logo LingkunganKu"><span class="brand-teks">Lingkungan<span class="brand-ku">Ku</span></span>' +
       '</a>' +
       '<nav aria-label="Menu Situs"><ul>' + menuHtml + '</ul></nav>' +
       '<div class="nav-aksi">' +
@@ -174,4 +175,172 @@
       bnProfil.innerHTML = SVG_PROFIL;
     }
   }
+})();
+/* ── Popup login/register di atas halaman ── */
+(function () {
+  var overlay, frame;
+
+  function close() {
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    frame.setAttribute('src', 'about:blank');
+    document.documentElement.style.overflow = '';
+  }
+
+  function onLoad() {
+    var w, d, href;
+    try { w = frame.contentWindow; d = frame.contentDocument; href = w.location.href; } catch (err) { return; }
+    if (!href || href.indexOf('about:') === 0) return;
+
+    var p = w.location.pathname;
+    if (p !== '/login' && p !== '/register') {
+      window.location.assign(p + w.location.search);
+      return;
+    }
+
+    var card = d.querySelector('.auth-card');
+    if (card && !d.getElementById('embed-close')) {
+      var b = d.createElement('button');
+      b.type = 'button';
+      b.id = 'embed-close';
+      b.className = 'embed-close';
+      b.setAttribute('aria-label', 'Tutup');
+      b.innerHTML = '&times;';
+      b.addEventListener('click', close);
+      card.appendChild(b);
+    }
+    d.addEventListener('click', function (e) { if (!e.target.closest('.auth-card')) close(); });
+    d.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
+  function build() {
+    if (overlay) return;
+    overlay = document.createElement('div');
+    overlay.className = 'auth-overlay';
+    overlay.innerHTML = '<iframe title="Masuk atau daftar"></iframe>';
+    document.body.appendChild(overlay);
+    frame = overlay.querySelector('iframe');
+    frame.addEventListener('load', onLoad);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
+  function open(path) {
+    build();
+    overlay.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+    frame.setAttribute('src', path);
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.nav-masuk, a.nav-daftar');
+    if (!a) return;
+    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    open(a.classList.contains('nav-daftar') ? '/register' : '/login');
+  }, true);
+})();
+
+/* Popup loading saat klik link / kirim form */
+(function () {
+  function siap() {
+    var el = document.createElement('div');
+    el.id = 'page-loader';
+    el.setAttribute('role', 'status');
+    el.innerHTML = '<div class="pl-box"><div class="pl-spin"></div><span>Memuat...</span></div>';
+    el.style.display='none';
+    document.body.appendChild(el);
+    var st = document.createElement('style');
+    st.textContent = '#page-loader{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(15,23,42,.28);z-index:100001}#page-loader.aktif{display:flex}#page-loader .pl-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 30px;background:#fff;border-radius:16px;box-shadow:0 12px 36px rgba(15,23,42,.25);color:#1e3a5f;font:600 .9rem sans-serif}#page-loader .pl-spin{width:34px;height:34px;border:4px solid #dbeafe;border-top-color:#2563EB;border-radius:50%;animation:plputar .8s linear infinite}@keyframes plputar{to{transform:rotate(360deg)}}';
+    document.head.appendChild(st);
+    var timer;
+    function mulai() {
+      el.style.display='flex';
+      clearTimeout(timer);
+      timer = setTimeout(function () { el.style.display='none'; }, 20000);
+    }
+    document.addEventListener('submit', function (e) { if (!e.defaultPrevented && e.target.matches('form[action*="buat-laporan"]')) mulai(); });
+    window.addEventListener('pageshow', function () { el.style.display='none'; });
+  }
+  if (document.body) siap(); else document.addEventListener('DOMContentLoaded', siap);
+})();
+
+/* ── Halaman yang butuh login: langsung buka popup Masuk ── */
+(function () {
+  var DILINDUNGI = ['/laporan', '/buat-laporan', '/notifikasi', '/profil'];
+
+  function sudahLogin() {
+    try {
+      return localStorage.getItem('lingkunganku_logged_in') === 'true'
+        && Boolean(localStorage.getItem('lingkunganku_nama'))
+        && Boolean(localStorage.getItem('lingkunganku_email'));
+    } catch (e) { return false; }
+  }
+  function dilindungi(path) {
+    path = (path || '').replace(/\/+$/, '') || '/';
+    return DILINDUNGI.indexOf(path) !== -1;
+  }
+  function bukaPopupMasuk() {
+    var a = document.createElement('a');
+    a.className = 'nav-masuk';
+    a.href = '/login';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  function simpanTujuan(path) {
+    try { localStorage.setItem('lingkunganku_redirect', path); } catch (e) {}
+  }
+
+  // Klik menu (menu atas maupun menu bawah di HP)
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || a.classList.contains('nav-masuk') || a.classList.contains('nav-daftar')) return;
+    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var url;
+    try { url = new URL(a.getAttribute('href'), location.href); } catch (err) { return; }
+    if (url.origin !== location.origin || !dilindungi(url.pathname)) return;
+    if (sudahLogin()) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    simpanTujuan(url.pathname);
+    bukaPopupMasuk();
+  }, true);
+
+  // Halaman dibuka langsung tanpa login
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!dilindungi(location.pathname) || sudahLogin()) return;
+    simpanTujuan(location.pathname);
+    bukaPopupMasuk();
+
+    // Popup ditutup tanpa login: kembali ke beranda
+    var ov = document.querySelector('.auth-overlay');
+    if (!ov) return;
+    new MutationObserver(function () {
+      if (!ov.classList.contains('open') && !sudahLogin()) location.href = '/';
+    }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+
+/* Microsoft Clarity */
+(function (c, l, a, r, i, t, y) {
+  c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+  t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+  y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+})(window, document, 'clarity', 'script', 'z4r4xbuiu3');
+
+/* Perbarui foto & nama di navbar atas saat profil diubah */
+(function () {
+  function segarkan() {
+    var img = document.getElementById('nav-user-foto');
+    var nm = document.getElementById('nav-user-nama');
+    if (img) img.src = localStorage.getItem('lingkunganku_foto') || '/assets/images/avatar-default.png';
+    var n = localStorage.getItem('lingkunganku_nama');
+    if (nm && n) nm.textContent = n.split(' ')[0];
+  }
+  window.addEventListener('lingkunganku:profil-update', segarkan);
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'lingkunganku_foto' || e.key === 'lingkunganku_nama') segarkan();
+  });
 })();

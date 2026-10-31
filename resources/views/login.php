@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="csrf-token" content="<?= csrf_token() ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LingkunganKU - Masuk</title>
   <meta name="description" content="Halaman masuk akun LingkunganKU.">
@@ -388,6 +389,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/css/auth-glass.css?v=9">
+  <script>if(window.self!==window.top)document.documentElement.classList.add('embed');</script>
+  <script src="/js/clarity.js"></script>
 </head>
 <body class="auth-page">
 
@@ -397,7 +401,7 @@
     <!-- Header dengan logo & nama app -->
     <div class="auth-card-header">
       <div class="auth-card-logo">
-        <img src="/assets/images/logo.png" alt="Logo LingkunganKU"
+        <img src="/assets/images/logo.webp" alt="Logo LingkunganKU"
           onerror="this.style.display='none'; document.querySelector('.auth-card-logo-fallback').style.display='block'">
         <span class="auth-card-logo-fallback" style="display:none">🌿</span>
       </div>
@@ -422,9 +426,9 @@
       <!-- Dua field dalam satu baris -->
       <div class="auth-fields-row">
         <div class="auth-field">
-          <label for="email-atau-telepon">Email atau nomor telepon</label>
-          <input type="text" id="email-atau-telepon" name="email_atau_telepon"
-            placeholder="Masukkan email atau no. telepon" autocomplete="username">
+          <label for="email-atau-telepon">Email</label>
+          <input type="email" id="email-atau-telepon" name="email_atau_telepon"
+            placeholder="Masukkan alamat email" autocomplete="username">
           <span class="field-error" id="error-email">Field ini wajib diisi</span>
         </div>
 
@@ -458,13 +462,13 @@
       <button type="submit" class="auth-btn-primary">Masuk</button>
     </form>
 
+    <div id="google-wrap" style="display:flex;justify-content:center;margin-top:.8rem"><div id="google-btn" style="width:100%;max-width:400px;display:flex;justify-content:center"></div></div>
     <div class="auth-divider"><span>atau belum punya akun?</span></div>
 
     <a href="/register" class="auth-btn-secondary">Daftar Akun Baru</a>
   </div>
 
   <script>
-    var ADMIN = { email: 'admin@lingkunganku.id', password: 'Admin123!', nama: 'Admin' };
 
     // ── Toggle show/hide password ──
     document.querySelectorAll('.pw-toggle').forEach(function(btn) {
@@ -503,47 +507,10 @@
     inputEmail.addEventListener('input', function() { clearErr(inputEmail, errEmail); });
     inputPw.addEventListener('input',    function() { clearErr(inputPw, errPw); });
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var email = inputEmail.value.trim();
-      var pw    = inputPw.value;
-      var ok    = true;
-
-      if (!email) { inputEmail.classList.add('input-error'); errEmail.classList.add('visible'); ok = false; }
-      if (!pw)    { inputPw.classList.add('input-error');    errPw.classList.add('visible');    ok = false; }
-      if (!ok) return;
-
-      var match = false, nama = '';
-
-      if (email.toLowerCase() === ADMIN.email.toLowerCase() && pw === ADMIN.password) {
-        match = true; nama = ADMIN.nama;
-      }
-
-      if (!match) {
-        var akun = JSON.parse(localStorage.getItem('lingkunganku_accounts') || '[]');
-        for (var i = 0; i < akun.length; i++) {
-          if (akun[i].email.toLowerCase() === email.toLowerCase() && akun[i].password === pw) {
-            match = true; nama = akun[i].nama; break;
-          }
-        }
-      }
-
-      if (!match) {
-        errorBanner.classList.add('visible');
-        inputEmail.classList.add('input-error');
-        inputPw.classList.add('input-error');
-        return;
-      }
-
-      localStorage.setItem('lingkunganku_logged_in', 'true');
-      localStorage.setItem('lingkunganku_nama', nama);
-      localStorage.setItem('lingkunganku_email', email);
-
-      var redirect = localStorage.getItem('lingkunganku_redirect');
-      if (redirect) { localStorage.removeItem('lingkunganku_redirect'); window.location.href = redirect; }
-      else { window.location.href = '/'; }
-    });
   </script>
 
+  <script src="/js/auth-warga.js?v=3"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/js/google-login.js?v=1"></script>
 </body>
 </html>

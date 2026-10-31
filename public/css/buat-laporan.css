@@ -445,3 +445,648 @@ body.laporan-perlu-login > main {
     padding: 0;
   }
 }
+
+/* ===== track vertikal di kanan: bagian form ===== */
+@media (min-width: 900px) {
+  body > main {
+    width: 760px !important;
+    max-width: 760px !important;
+    margin-left: calc(50% - 486px) !important;
+    margin-right: 0 !important;
+    padding-top: 24px !important;
+  }
+  body > main h1,
+  body > main h2 { font-size: 1.4rem !important; margin-bottom: 14px !important; }
+  body > main form { padding: 22px 24px !important; }
+  body > main fieldset { padding: 12px 16px !important; margin-bottom: 14px !important; }
+  body > main textarea { min-height: 80px !important; font-size: .92rem !important; }
+}
+
+/* ===== track vertikal di kanan: bagian track ===== */
+@media (min-width: 900px) {
+  body > header:not(.site-header) {
+    position: fixed !important;
+    top: 120px;
+    left: calc(50% + 306px);
+    width: 180px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    z-index: 5;
+  }
+  body > header:not(.site-header) nav { margin: 0 !important; }
+  body > header:not(.site-header) ol {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 36px !important;
+    margin: 0 !important; padding: 0 !important;
+    list-style: none;
+  }
+  body > header:not(.site-header) li {
+    position: relative;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 12px;
+    margin: 0 !important;
+  }
+  body > header:not(.site-header) li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 16px; top: 38px;
+    width: 2px; height: 34px;
+    background: #cbd5e1;
+  }
+}
+
+/* ===== Form setinggi layar, scroll di dalam form ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  html, body { overflow: hidden !important; height: 100%; }
+  body > main { padding-top: 16px !important; }
+  body > main #form-laporan {
+    max-height: calc(100vh - 190px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  body > main #form-laporan::-webkit-scrollbar { width: 8px; }
+  body > main #form-laporan::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+  body > header:not(.site-header) { top: 100px !important; }
+}
+
+/* ===== Form lebih panjang, sudut melengkung, track sejajar ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  body > main #form-laporan {
+    height: calc(100vh - 170px) !important;
+    max-height: calc(100vh - 170px) !important;
+    overflow-y: auto !important;
+    background: #fff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 22px !important;
+    box-shadow: 0 10px 30px rgba(30, 58, 95, .10) !important;
+    padding: 22px 24px !important;
+    margin-bottom: 0 !important;
+  }
+  /* Scrollbar di dalam lengkungan kartu */
+  body > main #form-laporan::-webkit-scrollbar { width: 8px; }
+  body > main #form-laporan::-webkit-scrollbar-track { margin: 18px 0; background: transparent; }
+  body > main #form-laporan::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+  /* Track: tinggi sama dengan form, 3 langkah tersebar rata */
+  body > header:not(.site-header) {
+    top: 156px !important;
+    height: calc(100vh - 170px) !important;
+  }
+  body > header:not(.site-header) nav,
+  body > header:not(.site-header) ol { height: 100% !important; }
+  body > header:not(.site-header) ol {
+    justify-content: space-between !important;
+    gap: 0 !important;
+    padding: 28px 0 !important;
+  }
+  body > header:not(.site-header) li:not(:last-child)::after {
+    height: calc((100vh - 170px - 56px - 3 * 34px) / 2 + 34px) !important;
+  }
+}
+
+/* ===== Final: satu kartu, scroll di dalam, judul sticky, track vertikal ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  body > main #form-laporan {
+    height: calc(100vh - 140px) !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    border-radius: 22px !important;
+  }
+  body > main #form-laporan > section {
+    height: 100% !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    padding: 0 24px 24px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  body > main #form-laporan > section::-webkit-scrollbar { width: 8px; }
+  body > main #form-laporan > section::-webkit-scrollbar-track { margin: 20px 0; background: transparent; }
+  body > main #form-laporan > section::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+  /* Judul langkah tetap terlihat saat scroll */
+  body > main #form-laporan > section > h1,
+  body > main #form-laporan > section > h2 {
+    position: sticky !important;
+    top: 0;
+    z-index: 3;
+    margin: 0 -24px 14px !important;
+    padding: 20px 24px 12px !important;
+    background: #fff !important;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  /* Track vertikal: posisi & tinggi diatur JS agar sejajar form */
+  body > header:not(.site-header) {
+    width: 200px !important;
+    height: auto;
+  }
+  body > header:not(.site-header) nav,
+  body > header:not(.site-header) ol { height: 100% !important; }
+  body > header:not(.site-header) ol {
+    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    padding: 0 !important;
+  }
+  body > header:not(.site-header) ol::before {
+    content: "";
+    position: absolute;
+    left: 16px; top: 17px; bottom: 17px;
+    width: 2px;
+    background: #cbd5e1;
+  }
+  body > header:not(.site-header) li { white-space: nowrap; }
+  body > header:not(.site-header) li::after { display: none !important; }
+  body > header:not(.site-header) li strong { position: relative; z-index: 1; }
+}
+
+/* ===== Form mepet ke bawah, satu bingkai ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  body > main { padding-bottom: 0 !important; margin-bottom: 0 !important; }
+  body > main #form-laporan {
+    height: calc(100vh - 140px - 16px) !important;
+    margin-bottom: 0 !important;
+  }
+  /* Hilangkan bingkai kedua di dalam kartu */
+  body > main #form-laporan > section {
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* ===== Hilangkan sisa ruang di bawah form ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  html, body { height: 100vh !important; overflow: hidden !important; margin: 0 !important; }
+  body > main { padding-bottom: 0 !important; margin-bottom: 0 !important; min-height: 0 !important; }
+}
+
+/* ===== Rapatkan jarak antara judul kelompok dan isinya ===== */
+body > main #form-laporan fieldset {
+  padding-top: 4px !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 12px !important;
+}
+body > main #form-laporan fieldset > legend {
+  padding: 0 8px !important;
+  margin: 0 !important;
+}
+body > main #form-laporan fieldset > label,
+body > main #form-laporan fieldset > div:first-of-type,
+body > main #form-laporan fieldset > p:first-of-type {
+  margin-top: 0 !important;
+}
+body > main #form-laporan fieldset label {
+  display: block;
+  margin: 0 0 6px !important;
+}
+body > main #form-laporan fieldset > *:first-child:not(legend),
+body > main #form-laporan fieldset > legend + * {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ===== Track: bulatan 1 sejajar tepi atas kartu form ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  body > header:not(.site-header),
+  body > header:not(.site-header) nav {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body > header:not(.site-header) ol {
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: flex-start !important;
+  }
+  body > header:not(.site-header) li:first-child { margin-top: 0 !important; }
+  body > header:not(.site-header) li:last-child { margin-bottom: 0 !important; }
+  body > header:not(.site-header) li strong {
+    margin: 0 !important;
+    flex: 0 0 34px;
+    width: 34px; height: 34px;
+  }
+  body > header:not(.site-header) ol::before {
+    top: 17px !important;
+    bottom: 17px !important;
+  }
+}
+
+/* ===== Track presisi: posisi dikunci ke tepi atas/bawah kartu ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  body > header:not(.site-header) {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+  }
+  body > header:not(.site-header) nav {
+    position: absolute !important;
+    inset: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+  }
+  body > header:not(.site-header) ol {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* Garis: dari pusat bulatan 1 sampai pusat bulatan 3 */
+  body > header:not(.site-header) ol::before {
+    content: "";
+    position: absolute !important;
+    left: 16px !important;
+    width: 2px !important;
+    top: 17px !important;
+    bottom: 17px !important;
+    background: #cbd5e1;
+    z-index: 0;
+  }
+  body > header:not(.site-header) li {
+    position: absolute !important;
+    left: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px;
+    height: 34px;
+    white-space: nowrap;
+    z-index: 1;
+  }
+  body > header:not(.site-header) li::after { display: none !important; }
+  body > header:not(.site-header) li:nth-child(1) { top: 0 !important; }
+  body > header:not(.site-header) li:nth-child(2) { top: calc(50% - 17px) !important; }
+  body > header:not(.site-header) li:nth-child(3) { top: auto !important; bottom: 0 !important; }
+  body > header:not(.site-header) li strong {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 34px;
+    width: 34px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    line-height: 1;
+  }
+}
+
+/* ===== Track: garis tidak menempel bulatan (jarak 8px) ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  /* matikan garis tunggal sebelumnya */
+  body > header:not(.site-header) ol::before { display: none !important; }
+
+  /* segmen 1: di bawah bulatan 1 sampai di atas bulatan 2 */
+}
+
+/* ===== Track: lebih dekat ke form, langkah 1 & 3 turun sedikit ===== */
+@media (min-width: 900px) and (min-height: 600px) {
+  body > header:not(.site-header) li:nth-child(1) { top: 28px !important; }
+  body > header:not(.site-header) li:nth-child(2) { top: calc(50% - 17px) !important; }
+  body > header:not(.site-header) li:nth-child(3) { top: auto !important; bottom: 28px !important; }
+}
+
+/* ===== Kartu gabungan: form + track, latar gelap ===== */
+body { background: #1e293b !important; }   /* sementara, disamakan dengan beranda di langkah 3 */
+
+#kartu-laporan {
+  display: flex;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+  overflow: hidden;
+}
+#kartu-laporan #form-laporan {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+#track-laporan {
+  flex: 0 0 210px;
+  padding: 28px 20px;
+  background: #f8fafc;
+  border-left: 1px solid #e2e8f0;
+}
+#track-laporan nav { margin: 0 !important; padding: 0 !important; height: 100%; }
+#track-laporan ol {
+  list-style: none; margin: 0; padding: 0; height: 100%;
+  display: flex; flex-direction: column;
+}
+#track-laporan li {
+  position: relative;
+  display: flex; align-items: flex-start; gap: 12px;
+  margin: 0; padding: 0;
+  white-space: nowrap;
+}
+#track-laporan li:not(:last-child) { flex: 1 1 0; }
+#track-laporan li::after { display: none; }
+#track-laporan li:not(:last-child)::after {
+  display: block; content: "";
+  position: absolute; left: 16px; top: 42px; bottom: 8px;
+  width: 2px; background: #cbd5e1;
+}
+#track-laporan li strong {
+  flex: 0 0 34px; width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: #fff; border: 1px solid #e2e8f0;
+  color: #0f172a; font-size: .9rem; font-weight: 700;
+}
+#track-laporan li span { line-height: 34px; color: #64748b; font-size: .9rem; }
+#track-laporan li[aria-current="step"] strong { background: #2563EB; border-color: #2563EB; color: #fff; }
+#track-laporan li[aria-current="step"] span { color: #2563EB; font-weight: 600; }
+
+@media (min-width: 900px) {
+  body > main {
+    width: 980px !important; max-width: 980px !important;
+    margin-left: auto !important; margin-right: auto !important;
+  }
+}
+@media (max-width: 899px) {
+  #kartu-laporan { flex-direction: column; }
+  #track-laporan { order: -1; flex: none; border-left: 0; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; }
+  #track-laporan ol { flex-direction: row; justify-content: space-between; }
+  #track-laporan li { flex: none !important; flex-direction: column; align-items: center; gap: 4px; }
+  #track-laporan li::after { display: none !important; }
+  #track-laporan li span { line-height: 1.2; font-size: .78rem; }
+}
+
+/* ===== Perbaikan panel track: label di samping bulatan, garis rapi ===== */
+#track-laporan {
+  background: #fff !important;
+  border-left: 1px solid #e2e8f0;
+  flex: 0 0 200px;
+  padding: 32px 22px 32px 24px;
+}
+#track-laporan li {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  height: 34px;
+}
+#track-laporan li:not(:last-child) { flex: 0 0 auto !important; }
+#track-laporan li span {
+  display: inline !important;
+  position: static !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap;
+}
+#track-laporan li strong { margin: 0 !important; }
+
+/* Susunan: bulatan 1 atas, 2 tengah, 3 bawah */
+#track-laporan ol {
+  position: relative;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: 100% !important;
+}
+/* Garis hanya di antara bulatan (digambar JS), matikan garis lama */
+#track-laporan li::after,
+#track-laporan li:not(:last-child)::after { display: none !important; }
+
+/* ===== Latar halaman = gambar beranda + lapisan gelap ===== */
+body {
+  background:
+    linear-gradient(rgba(15, 23, 42, .62), rgba(15, 23, 42, .62)),
+    url('/assets/images/hero-city.webp') center / cover no-repeat fixed !important;
+}
+
+/* ===== Langkah yang sudah dilewati tetap biru ===== */
+#track-laporan li.selesai strong {
+  background: #2563EB !important;
+  border-color: #2563EB !important;
+  color: #fff !important;
+}
+#track-laporan li.selesai span {
+  color: #2563EB !important;
+  font-weight: 600;
+}
+
+/* ===== Mobile: track horizontal di atas form ===== */
+@media (max-width: 899px) {
+  #kartu-laporan { flex-direction: column !important; height: auto !important; }
+  #kartu-laporan #form-laporan { height: auto !important; }
+
+  #track-laporan {
+    order: -1;
+    flex: none !important;
+    width: 100%;
+    padding: 18px 16px 14px !important;
+    border-left: 0 !important;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff !important;
+  }
+  #track-laporan nav { height: auto !important; }
+  #track-laporan ol {
+    position: relative;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    height: auto !important;
+    margin: 0 !important; padding: 0 !important;
+  }
+  #track-laporan li,
+  #track-laporan li:not(:last-child) {
+    flex: 1 1 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 6px !important;
+    height: auto !important;
+    text-align: center;
+    position: static;
+  }
+  #track-laporan li span {
+    font-size: .76rem !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+  }
+  /* garis lama dimatikan; garis baru digambar JS */
+  #track-laporan li::after,
+  #track-laporan li:not(:last-child)::after { display: none !important; }
+}
+
+/* ===== Input foto: lebih kecil ===== */
+#foto-laporan {
+  font-size: .8rem !important;
+  padding: 6px 10px !important;
+  min-height: 0 !important;
+  color: #64748b;
+}
+#foto-laporan::file-selector-button {
+  font-size: .78rem;
+  padding: 4px 10px;
+  margin-right: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #0f172a;
+  cursor: pointer;
+}
+#foto-laporan::file-selector-button:hover { background: #e2e8f0; }
+#foto-laporan ~ small,
+#foto-laporan ~ p,
+#foto-laporan + * { font-size: .78rem !important; }
+
+/* ===== Pilih kategori: dropdown pop-up ===== */
+.kategori-asli {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  margin: 0 !important; padding: 0 !important;
+  overflow: hidden !important;
+  clip-path: inset(50%);
+  opacity: 0;
+  pointer-events: none;
+}
+#kategori-dd { position: relative; width: 100%; }
+#kategori-dd .kategori-pemicu {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font: inherit; font-size: .92rem;
+  color: #94a3b8;
+  cursor: pointer;
+  text-align: left;
+}
+#kategori-dd.terisi .kategori-pemicu { color: #0f172a; font-weight: 600; }
+#kategori-dd .kategori-pemicu:hover { border-color: #93c5fd; }
+#kategori-dd.buka .kategori-pemicu { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37, 99, 235, .15); }
+#kategori-dd .kategori-pemicu svg { flex: none; color: #64748b; transition: transform .2s ease; }
+#kategori-dd.buka .kategori-pemicu svg { transform: rotate(180deg); }
+
+#kategori-dd .kategori-daftar {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+  z-index: 20;
+  margin: 0; padding: 6px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, .18);
+}
+#kategori-dd .kategori-daftar[hidden] { display: none; }
+#kategori-dd .kategori-daftar li {
+  padding: 10px 12px;
+  border-radius: 9px;
+  font-size: .9rem; color: #0f172a;
+  cursor: pointer;
+  outline: none;
+}
+#kategori-dd .kategori-daftar li:hover,
+#kategori-dd .kategori-daftar li:focus { background: #eff6ff; color: #2563EB; }
+#kategori-dd .kategori-daftar li[aria-selected="true"] { background: #dbeafe; color: #1d4ed8; font-weight: 600; }
+
+/* ===== Dropdown kategori: lebih ramping, lebih panjang ke kanan ===== */
+#kategori-dd {
+  width: 100% !important;
+  max-width: 420px;
+}
+#kategori-dd .kategori-pemicu {
+  padding: 7px 14px !important;
+  font-size: .86rem !important;
+  border-radius: 10px !important;
+  min-height: 0 !important;
+  height: 38px;
+}
+#kategori-dd .kategori-pemicu svg { width: 16px; height: 16px; }
+#kategori-dd .kategori-daftar li {
+  padding: 8px 12px !important;
+  font-size: .86rem !important;
+}
+
+/* ===== Peta terkunci sebelum Kecamatan dipilih ===== */
+#peta-lokasi.peta-terkunci { pointer-events: none; opacity: .55; filter: grayscale(.5); }
+#alamat-lokasi:disabled, #titik-maps:disabled { background: #f1f5f9; cursor: not-allowed; }
+#gunakan-lokasi-saya:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ===== Dropdown kategori: selebar penuh, teks satu baris ===== */
+#kategori-dd {
+  flex: 1 1 100% !important;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+#kategori-dd .kategori-pemicu {
+  width: 100% !important;
+  height: 42px;
+}
+#kategori-dd .kategori-teks {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== Dropdown kategori: lebar tetap, teks terbaca penuh ===== */
+#kategori-dd {
+  width: 360px !important;
+  min-width: 360px !important;
+  max-width: 100% !important;
+  flex: none !important;
+}
+#kategori-dd .kategori-pemicu { width: 100% !important; }
+#kategori-dd .kategori-teks { white-space: nowrap; overflow: visible; text-overflow: clip; }
+
+/* pembungkus ikut melebar */
+*:has(> #kategori-dd) { display: block !important; width: 100% !important; }
+
+/* ===== Pilihan kategori: bulatan radio di samping teks ===== */
+#kategori-dd .kategori-daftar li {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+#kategori-dd .kategori-daftar li::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 2px solid #94a3b8;
+  border-radius: 50%;
+  background: #fff;
+  transition: border-color .15s ease, background .15s ease;
+}
+#kategori-dd .kategori-daftar li:hover::before,
+#kategori-dd .kategori-daftar li:focus::before {
+  border-color: #2563EB;
+}
+#kategori-dd .kategori-daftar li[aria-selected="true"]::before {
+  border-color: #2563EB;
+  background: radial-gradient(circle, #2563EB 0 4px, #fff 5px);
+}
+
+/* ===== Petunjuk di bawah kolom alamat: lebih kecil dan pudar ===== */
+#alamat-lokasi + p {
+  font-size: .78rem !important;
+  line-height: 1.4;
+  color: #94a3b8 !important;
+  margin-top: 6px;
+}

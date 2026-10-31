@@ -7,13 +7,15 @@
   <meta name="description" content="Halaman pengaturan profil pengguna LingkunganKU.">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/profil.css">
-  <link rel="stylesheet" href="/css/navbar.css?v=6">
+  <link rel="stylesheet" href="/css/navbar.css?v=8">
   <link rel="stylesheet" href="/css/chatbot.css">
+  <script src="/js/clarity.js"></script>
+  <meta name="csrf-token" content="<?= csrf_token() ?>">
 </head>
 <body>
 
   <header class="site-header"></header>
-  <script src="/js/navbar.js"></script>
+  <script src="/js/navbar.js?v=12"></script>
 
 
 <main>
@@ -84,7 +86,7 @@
                 <button type="button" class="btn utama" id="btn-unggah">Unggah foto</button>
                 <button type="button" class="btn" id="btn-hapus-foto">Hapus</button>
               </div>
-              <small>Format PNG, JPEG, atau GIF, maksimal 2 MB.</small>
+              <small>Format PNG, JPEG, atau GIF, maksimal 2 MB. Foto tersimpan otomatis setelah dipilih.</small>
             </div>
           </div>
 
@@ -259,7 +261,7 @@
       <h2 class="judul-akun">Tentang Lingkunganku</h2>
       <div class="blok">
         <div class="tentang-kepala">
-          <img src="/assets/images/logo.png" alt="Logo LingkunganKU">
+          <img src="/assets/images/logo.webp" alt="Logo LingkunganKU">
           <div>
             <h3>LingkunganKU</h3>
             <p>Platform pelaporan lingkungan</p>
@@ -305,7 +307,7 @@
     <script src="/js/foto-crop.js"></script>
   <script src="/js/profil.js"></script>
   <script src="/js/faq-data.js"></script>
-  <script src="/js/chatbot.js"></script>
+  <script src="/js/chatbot.js?v=2"></script>
   <script src="/js/chatbot-drag.js"></script>
 </body>
 </html>

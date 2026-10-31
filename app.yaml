@@ -1,0 +1,10 @@
+kind: wasmer.io/App.v0
+name: lingkunganku
+package: .
+description: "LingkunganKu - Aplikasi Laporan Lingkungan"
+
+scaling:
+  mode: single_concurrency
+
+owner: sindilaesaselviana
+app_id: da_n73IatAUBLNY

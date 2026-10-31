@@ -9,7 +9,7 @@ var FAQ = [
   {
     id: 1, kategori: 'Laporan', tanya: 'Bagaimana cara membuat laporan?',
     kunci: ['cara buat laporan', 'cara membuat laporan', 'bikin laporan', 'buat laporan', 'membuat laporan',
-            'cara lapor', 'cara melapor', 'melapor', 'lapor', 'kirim laporan', 'mengadu', 'pengaduan'],
+            'cara lapor', 'cara melapor', 'melapor', 'lapor', 'kirim laporan', 'mengadu', 'pengaduan', 'alur', 'alur pelaporan', 'alur laporan', 'alur melapor', 'tahapan', 'langkah', 'prosedur', 'proses lapor', 'pelaporan'],
     jawab: 'Ada 3 langkah di menu Buat Laporan:\n1. Jenis laporan: pilih kategori, tulis deskripsi, lalu unggah foto bukti.\n2. Lokasi: pilih kecamatan dan desa/kelurahan, lalu isi titik peta.\n3. Konfirmasi: periksa ringkasan, centang pernyataan, lalu tekan Kirim.',
     link: { teks: 'Buka Buat Laporan', href: '/buat-laporan' }
   },
@@ -35,7 +35,7 @@ var FAQ = [
   {
     id: 5, kategori: 'Laporan', tanya: 'Foto seperti apa yang bisa diunggah?',
     kunci: ['foto', 'gambar', 'unggah', 'upload', 'format', 'ukuran foto', 'maksimal', 'dokumentasi', 'bukti'],
-    jawab: 'Foto bukti berformat WebP, PNG, atau JPG dengan ukuran maksimal 5 MB. Ambil foto yang jelas dan menunjukkan kondisi kerusakannya.'
+    jawab: 'Foto bukti berformat WebP, PNG, atau JPG dengan ukuran maksimal 2 MB per foto (maksimal 3 foto). Ambil foto yang jelas dan menunjukkan kondisi kerusakannya.'
   },
   {
     id: 6, kategori: 'Laporan', tanya: 'Bagaimana cara menentukan lokasi?',
@@ -122,5 +122,15 @@ var FAQ = [
     kunci: ['kontak', 'hubungi', 'bantuan', 'admin', 'cs', 'customer service', 'komplain', 'saran', 'masalah aplikasi', 'error', 'bug', 'rusak'],
     bobot: 0.5,
     jawab: 'Pertanyaan yang belum terjawab di sini bisa disampaikan melalui pengurus kelurahan/desa setempat. Jika aplikasi bermasalah, sebutkan halaman dan langkah yang Anda lakukan agar mudah dilacak.'
+  }
+,
+  {
+    id: 21, kategori: 'Laporan', tanya: 'Apa fungsi Buat Laporan?',
+    kunci: ['fungsi buat laporan', 'fungsi membuat laporan', 'apa fungsi buat laporan', 'untuk apa buat laporan',
+            'kegunaan buat laporan', 'manfaat buat laporan', 'tujuan buat laporan',
+            'fungsi', 'kegunaan', 'manfaat', 'tujuan', 'untuk apa'],
+    bobot: 3,
+    jawab: 'Buat Laporan dipakai untuk melaporkan masalah lingkungan di sekitar Anda, seperti jalan berlubang, sampah menumpuk, selokan tersumbat, atau lampu jalan mati. Laporan Anda diteruskan ke petugas untuk ditinjau dan ditangani, dan statusnya bisa dipantau di aplikasi.',
+    link: { teks: 'Buka Buat Laporan', href: '/buat-laporan' }
   }
 ];

@@ -1,0 +1,129 @@
+/* ===== Detail penanganan: foto kiri, tracking kanan, keterangan di bawah foto ===== */
+main:has(> .kolom-kanan) {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-areas:
+    "foto    proses"
+    "detail  proses"
+    "info    proses"
+    "kembali proses";
+  grid-template-rows: auto auto auto 1fr;
+  gap: 16px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  align-items: start;
+}
+main > .kolom-kiri,
+main > .kolom-kanan { display: contents !important; }
+
+.kolom-kiri > section:first-child { grid-area: foto; }
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"] { grid-area: detail; }
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] { grid-area: info; }
+.kolom-kiri > section[aria-label="Navigasi Kembali"] { grid-area: kembali; }
+.kolom-kanan > section[aria-labelledby="proses-heading"] { grid-area: proses; }
+
+.kolom-kiri > section:first-child figure { margin: 0; }
+.kolom-kiri > section:first-child img {
+  display: block;
+  width: 100% !important;
+  height: auto;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, .12);
+}
+.kolom-kiri > section:first-child figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: .78rem;
+  color: #64748b;
+}
+@media (max-width: 800px) {
+  main:has(> .kolom-kanan) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "foto" "detail" "info" "proses" "kembali";
+    grid-template-rows: none;
+  }
+}
+
+/* ===== Satu kartu: foto + detail + informasi digabung ===== */
+main:has(> .kolom-kanan) {
+  grid-template-columns: minmax(0, 1fr) 340px !important;
+  grid-template-areas:
+    "foto    proses"
+    "detail  proses"
+    "info    proses"
+    "kembali proses" !important;
+  gap: 0 24px !important;
+}
+main:has(> .kolom-kanan)::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / 4;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, .10);
+}
+
+.kolom-kiri > section:first-child,
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"],
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] {
+  grid-column: 1 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  position: relative;
+}
+.kolom-kiri > section:first-child { grid-row: 1 !important; padding-top: 24px !important; }
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"] { grid-row: 2 !important; padding-top: 18px !important; }
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] { grid-row: 3 !important; padding-top: 6px !important; padding-bottom: 24px !important; }
+
+.kolom-kiri > section[aria-label="Navigasi Kembali"] { grid-column: 1 !important; grid-row: 4 !important; margin-top: 16px !important; }
+.kolom-kanan > section[aria-labelledby="proses-heading"] { grid-column: 2 !important; grid-row: 1 / 5 !important; }
+.kolom-kiri > section:first-child img { max-height: 220px !important; }
+@media (max-width: 800px) {
+  main:has(> .kolom-kanan)::before { display: none; }
+  main:has(> .kolom-kanan) { grid-template-columns: 1fr !important; }
+  .kolom-kiri > section, .kolom-kanan > section { grid-column: 1 !important; grid-row: auto !important; background: #fff !important; }
+}
+
+/* ===== Perbaikan: tiga blok tampil sebagai satu kartu putih ===== */
+main:has(> .kolom-kanan)::before { display: none !important; }
+main:has(> .kolom-kanan) { row-gap: 0 !important; }
+
+.kolom-kiri > section:first-child,
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"],
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] {
+  background: #fff !important;
+  border-left: 1px solid #e2e8f0 !important;
+  border-right: 1px solid #e2e8f0 !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.kolom-kiri > section:first-child {
+  border-top: 1px solid #e2e8f0 !important;
+  border-radius: 20px 20px 0 0 !important;
+  padding-top: 24px !important;
+  padding-bottom: 8px !important;
+}
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"] {
+  padding-top: 12px !important;
+  padding-bottom: 4px !important;
+}
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] {
+  border-bottom: 1px solid #e2e8f0 !important;
+  border-radius: 0 0 20px 20px !important;
+  padding-top: 4px !important;
+  padding-bottom: 24px !important;
+}
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"] table,
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] table,
+.kolom-kiri > section[aria-labelledby="info-laporan-heading"] tr,
+.kolom-kanan > section[aria-labelledby="info-petugas-heading"] tr {
+  background: transparent !important;
+}
