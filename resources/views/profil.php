@@ -305,7 +305,7 @@
   </main>
 
     <script src="/js/foto-crop.js"></script>
-  <script src="/js/profil.js"></script>
+  <script src="/js/profil.js?v=5"></script>
   <script src="/js/faq-data.js"></script>
   <script src="/js/chatbot.js?v=2"></script>
   <script src="/js/chatbot-drag.js"></script>

@@ -793,3 +793,34 @@ h1, h2, h3 { margin: 0; }
         padding: 26px 20px;
     }
 }
+
+/* Pagination admin */
+ul.pagination { list-style: none; display: flex; gap: 6px; padding: 0; margin: 12px 0; flex-wrap: wrap; }
+ul.pagination li a, ul.pagination li span {
+  display: inline-block; padding: 6px 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+  color: #334155; text-decoration: none; font-size: .85rem; background: #fff;
+}
+ul.pagination li.active span { background: #2563EB; color: #fff; border-color: #2563EB; }
+ul.pagination li.disabled span { color: #94a3b8; background: #f1f5f9; }
+ul.pagination li a:hover { background: #eff6ff; }
+
+/* Pagination admin (perkuat) */
+.card ul.pagination, ul.pagination { list-style: none !important; display: flex !important; gap: 6px; padding: 0 !important; margin: 12px 0 !important; flex-wrap: wrap; }
+ul.pagination li { list-style: none !important; margin: 0; }
+ul.pagination li::marker { content: none; }
+ul.pagination li a, ul.pagination li span, ul.pagination .page-link {
+  display: inline-block; padding: 6px 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+  color: #334155; text-decoration: none; font-size: .85rem; background: #fff;
+}
+ul.pagination li.active span, ul.pagination .active .page-link { background: #2563EB !important; color: #fff !important; border-color: #2563EB !important; }
+ul.pagination li.disabled span, ul.pagination .disabled .page-link { color: #94a3b8; background: #f1f5f9; }
+ul.pagination li a:hover { background: #eff6ff; }
+
+/* Pagination: satu baris, di tengah */
+nav ul.pagination, ul.pagination {
+  display: flex !important; flex-direction: row !important; flex-wrap: wrap;
+  justify-content: center !important; align-items: center; gap: 6px;
+  list-style: none !important; padding: 0 !important; margin: 16px 0 !important;
+}
+ul.pagination > li { display: inline-block !important; list-style: none !important; }
+ul.pagination > li::marker { content: "" !important; font-size: 0; }

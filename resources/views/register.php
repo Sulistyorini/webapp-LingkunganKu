@@ -558,6 +558,6 @@
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="/js/google-login.js?v=2"></script>
-  <script src="/js/auth-warga.js?v=3"></script>
+  <script src="/js/auth-warga.js?v=5"></script>
 </body>
 </html>

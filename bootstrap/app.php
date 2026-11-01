@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
-        $middleware->validateCsrfTokens(except: ['buat-laporan', 'admin/login', 'admin/laporan/*', 'admin/logout', 'login', 'register', 'login/google', 'api/chatbot']);
+        $middleware->validateCsrfTokens(except: ['buat-laporan', 'admin/login', 'admin/laporan/*', 'admin/logout', 'login', 'register', 'login/google', 'api/chatbot', 'api/profil/*']);
         $middleware->encryptCookies(except: ['admin_token']);
     })
     ->withExceptions(function (Exceptions $exceptions) {

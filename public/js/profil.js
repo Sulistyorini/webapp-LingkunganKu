@@ -44,7 +44,7 @@ function kirim(url, data) {
     },
     body: JSON.stringify(data || {})
   }).then(function (r) {
-    if (r.status === 401) { sesiHabis(); throw new Error('Sesi berakhir.'); }
+    if (r.status === 401) { throw new Error('Server belum mengenali sesi. Perubahan hanya tersimpan di perangkat ini.'); }
     if (r.status === 419) { throw new Error('Halaman kedaluwarsa. Muat ulang halaman ini.'); }
     return r.json().catch(function () { return {}; }).then(function (j) {
       if (!r.ok) {
@@ -74,16 +74,14 @@ isiForm();
 // Muat data terbaru dari server (nama, email, foto)
 fetch('/profil/data', { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
   .then(function (r) {
-    if (r.status === 401) { sesiHabis(); return null; }
     return r.ok ? r.json() : null;
   })
   .then(function (p) {
     if (!p) return;
     try {
-      localStorage.setItem('lingkunganku_nama', p.nama || '');
-      localStorage.setItem('lingkunganku_email', p.email || '');
+      if (p.nama) { localStorage.setItem('lingkunganku_nama', p.nama); }
+      if (p.email) { localStorage.setItem('lingkunganku_email', p.email); }
       if (p.foto) { localStorage.setItem('lingkunganku_foto', p.foto); }
-      else { localStorage.removeItem('lingkunganku_foto'); }
     } catch (e) {}
     isiForm();
     window.dispatchEvent(new Event('lingkunganku:profil-update'));
@@ -116,6 +114,9 @@ function perkecil(file, cb) {
 // Simpan foto otomatis (dataUrl null = hapus foto)
 function simpanFoto(dataUrl) {
   tampilkanPesan('Menyimpan foto...', true);
+  try { if (dataUrl) { localStorage.setItem('lingkunganku_foto', dataUrl); } else { localStorage.removeItem('lingkunganku_foto'); } } catch (e) {}
+  fotoTersimpan = dataUrl; tampilkanFoto(dataUrl);
+  window.dispatchEvent(new Event('lingkunganku:profil-update'));
   kirim('/profil/foto', { foto: dataUrl })
     .then(function () {
       fotoTersimpan = dataUrl;

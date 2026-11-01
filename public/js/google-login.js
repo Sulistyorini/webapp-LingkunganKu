@@ -23,8 +23,8 @@
       localStorage.setItem('lingkunganku_email', d.email);
       if (d.foto) { localStorage.setItem('lingkunganku_foto', d.foto); } else { localStorage.removeItem('lingkunganku_foto'); }
       var tujuan = d.redirect || '/';
-      var simpan = localStorage.getItem('lingkunganku_redirect');
-      if (simpan) { localStorage.removeItem('lingkunganku_redirect'); tujuan = simpan; }
+      localStorage.removeItem('lingkunganku_redirect');
+      tujuan = '/';
       if (window.top !== window.self) { window.top.location.href = tujuan; } else { window.location.href = tujuan; }
     })
     .catch(function () { galat('Tidak dapat terhubung ke server.'); });

@@ -47,7 +47,7 @@ class WargaAuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return response()->json(['redirect' => '/', 'nama' => $user->name, 'email' => $user->email]);
+        return response()->json(['redirect' => '/', 'nama' => $user->name, 'email' => $user->email, 'token' => \App\Support\WargaToken::make($user)]);
     }
 
     public function login(Request $request)
@@ -63,7 +63,7 @@ class WargaAuthController extends Controller
 
         $request->session()->regenerate();
         $tujuan = Auth::user()->hasVerifiedEmail() ? '/' : '/';
-        return response()->json(['redirect' => $tujuan, 'nama' => Auth::user()->name, 'email' => Auth::user()->email]);
+        return response()->json(['redirect' => $tujuan, 'nama' => Auth::user()->name, 'email' => Auth::user()->email, 'token' => \App\Support\WargaToken::make(Auth::user())]);
     }
 
     public function logout(Request $request)

@@ -509,8 +509,8 @@
 
   </script>
 
-  <script src="/js/auth-warga.js?v=3"></script>
+  <script src="/js/auth-warga.js?v=5"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="/js/google-login.js?v=1"></script>
+  <script src="/js/google-login.js?v=3"></script>
 </body>
 </html>
