@@ -52,6 +52,7 @@ class GoogleAuthController extends Controller
             'redirect' => '/',
             'nama' => $user->name,
             'email' => $user->email,
+            'token' => \App\Support\WargaToken::make($user),
             'foto' => $user->foto,
         ]);
     }

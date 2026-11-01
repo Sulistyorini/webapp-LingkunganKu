@@ -44,8 +44,8 @@
       localStorage.setItem('lingkunganku_nama', h.d.nama);
       localStorage.setItem('lingkunganku_email', h.d.email);
       var tujuan = h.d.redirect || '/';
-      var simpan = localStorage.getItem('lingkunganku_redirect');
-      if (simpan && tujuan === '/') { localStorage.removeItem('lingkunganku_redirect'); tujuan = simpan; }
+      localStorage.removeItem('lingkunganku_redirect');
+      tujuan = '/';
       window.location.href = tujuan;
     })
     .catch(function () { galat('Tidak dapat terhubung ke server.'); tombol.disabled = false; tombol.textContent = teksAsli; });

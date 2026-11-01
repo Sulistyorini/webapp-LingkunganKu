@@ -199,3 +199,7 @@ Route::middleware(['auth', 'throttle:30,1'])->group(function () {
     Route::post('/profil/data', [\App\Http\Controllers\ProfilController::class, 'ubah']);
     Route::post('/profil/foto', [\App\Http\Controllers\ProfilController::class, 'foto']);
 });
+
+Route::post('/api/profil/muat', [\App\Http\Controllers\ProfilController::class, 'data']);
+Route::post('/api/profil/data', [\App\Http\Controllers\ProfilController::class, 'ubah']);
+Route::post('/api/profil/foto', [\App\Http\Controllers\ProfilController::class, 'foto']);
