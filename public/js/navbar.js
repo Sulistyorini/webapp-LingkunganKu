@@ -323,12 +323,14 @@
   });
 })();
 
-/* Microsoft Clarity */
-(function (c, l, a, r, i, t, y) {
-  c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-  t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
-  y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-})(window, document, 'clarity', 'script', 'z4r4xbuiu3');
+/* Microsoft Clarity: dimuat lewat clarity.js setelah persetujuan cookie */
+(function () {
+  if (window.__clarityKonsen) return;
+  var s = document.createElement('script');
+  s.src = '/js/clarity.js?v=2';
+  s.async = true;
+  document.head.appendChild(s);
+})();
 
 /* Perbarui foto & nama di navbar atas saat profil diubah */
 (function () {

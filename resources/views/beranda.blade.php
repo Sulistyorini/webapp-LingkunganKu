@@ -72,9 +72,9 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-jalan-berlubang.jpg') }}"
+              <img fetchpriority="high" src="{{ asset('assets/images/laporan-jalan-berlubang-kecil.webp') }}"
                    alt="Foto jalan berlubang di Palmerah"
-                   class="laporan-card-img" loading="lazy"
+                   class="laporan-card-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="laporan-card-img-fallback" aria-hidden="true">
                 <span class="laporan-card-img-fallback-icon">🛣️</span>
@@ -111,9 +111,9 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-sampah-menumpuk.jpg') }}"
+              <img loading="lazy" decoding="async" src="{{ asset('assets/images/laporan-sampah-menumpuk-kecil.webp') }}"
                    alt="Foto sampah menumpuk di Slipi"
-                   class="laporan-card-img" loading="lazy"
+                   class="laporan-card-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="laporan-card-img-fallback" aria-hidden="true">
                 <span class="laporan-card-img-fallback-icon">🗑️</span>
@@ -150,9 +150,9 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-lampu-jalan-mati.jpg') }}"
+              <img loading="lazy" decoding="async" src="{{ asset('assets/images/laporan-lampu-jalan-mati-kecil.webp') }}"
                    alt="Foto lampu jalan mati di Kebon Jeruk"
-                   class="laporan-card-img" loading="lazy"
+                   class="laporan-card-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="laporan-card-img-fallback" aria-hidden="true">
                 <span class="laporan-card-img-fallback-icon">💡</span>
@@ -189,9 +189,9 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-selokan-tersumbat.jpg') }}"
+              <img loading="lazy" decoding="async" src="{{ asset('assets/images/laporan-selokan-tersumbat-kecil.webp') }}"
                    alt="Foto selokan tersumbat di Palmerah"
-                   class="laporan-card-img" loading="lazy"
+                   class="laporan-card-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="laporan-card-img-fallback" aria-hidden="true">
                 <span class="laporan-card-img-fallback-icon">🌊</span>
@@ -229,9 +229,9 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-pohon-tumbang.jpg') }}"
+              <img loading="lazy" decoding="async" src="{{ asset('assets/images/laporan-pohon-tumbang-kecil.webp') }}"
                    alt="Foto pohon tumbang di Kebon Jeruk"
-                   class="laporan-card-img" loading="lazy"
+                   class="laporan-card-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="laporan-card-img-fallback" aria-hidden="true">
                 <span class="laporan-card-img-fallback-icon">🌳</span>
@@ -252,9 +252,9 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-taman-kotor.jpg') }}"
+              <img loading="lazy" decoding="async" src="{{ asset('assets/images/laporan-taman-kotor-kecil.webp') }}"
                    alt="Foto taman kotor di Slipi"
-                   class="laporan-card-img" loading="lazy"
+                   class="laporan-card-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="laporan-card-img-fallback" aria-hidden="true">
                 <span class="laporan-card-img-fallback-icon">🌿</span>
