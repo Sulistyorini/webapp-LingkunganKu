@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" as="image" href="{{ asset('assets/images/hero-city.webp') }}" fetchpriority="high">
   <link rel="stylesheet" href="{{ asset('css/base.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/index.css') . '?v=2' }}">
@@ -11,7 +12,7 @@
   <meta name="description" content="Aplikasi pelaporan dan pemantauan masalah lingkungan masyarakat.">
   <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
   <link rel="stylesheet" href="{{ asset('css/tentang.css') . '?v=1' }}">
-  <script src="/js/clarity.js"></script>
+  <script src="/js/clarity.js" async></script>
 </head>
 <body class="page-beranda">
 
@@ -302,9 +303,9 @@
       });
     }
   </script>
-  <script src="{{ asset('js/faq-data.js') }}"></script>
-  <script src="{{ asset('js/chatbot.js') . '?v=2' }}"></script>
-  <script src="{{ asset('js/chatbot-drag.js') }}"></script>
+  <script src="{{ asset('js/faq-data.js') }}" defer></script>
+  <script src="{{ asset('js/chatbot.js') . '?v=2' }}" defer></script>
+  <script src="{{ asset('js/chatbot-drag.js') }}" defer></script>
   <script>
     // Seluruh kartu laporan bisa diklik -> detail laporan
     (function () {
